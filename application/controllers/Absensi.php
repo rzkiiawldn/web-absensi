@@ -30,14 +30,11 @@ class Absensi extends CI_Controller
         $id_user = $user->id_user;
 
         $today = $this->absensi_model->today($id_user);
-        if ($today['absen_masuk'] == null) {
+        if (empty($today)) {
             $act = 'Masuk';
             $id_absen = 0;
-        }elseif ($today['absen_pulang'] == null AND $today['absen_masuk'] != null){
+        }else {
             $act = 'Pulang';
-            $id_absen = $today['id_absen'];
-        }else{
-            $act = 'Sudah Absen';
             $id_absen = $today['id_absen'];
         }
 

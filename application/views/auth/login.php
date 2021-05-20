@@ -52,28 +52,6 @@
                                         </button>
                                     </form>
                                     <hr>
-                                    <table class="table">
-                                        <tr>
-                                            <th>Level</th>
-                                            <th>Username</th>
-                                            <th>Password</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Admin</td>
-                                            <td>IT-0001</td>
-                                            <td>1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>HRD</td>
-                                            <td>IT-0002</td>
-                                            <td>1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pegawai</td>
-                                            <td>IT-0003</td>
-                                            <td>1234</td>
-                                        </tr>
-                                    </table>
                                 </div>
                             </div>
                         </div>

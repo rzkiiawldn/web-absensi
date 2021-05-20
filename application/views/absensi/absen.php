@@ -26,7 +26,7 @@
 									</tr>
 									<tr>
 											
-                      <?php if($today['absen_masuk'] == null) { ?>
+                      <?php if(empty($today)) { ?>
                         <td>
                           <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#masuk">Absen Masuk</a>
                         </td>

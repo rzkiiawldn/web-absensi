@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Bulan Mei 2021 pada 08.57
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.3.15
+-- Generation Time: May 20, 2021 at 10:31 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `absen`
+-- Table structure for table `absen`
 --
 
 CREATE TABLE `absen` (
@@ -37,16 +36,16 @@ CREATE TABLE `absen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `absen`
+-- Dumping data for table `absen`
 --
 
 INSERT INTO `absen` (`id_absen`, `tanggal`, `absen_masuk`, `absen_pulang`, `id_user`) VALUES
-(91, '2021-05-20', '13:52:49', '13:53:23', 10);
+(94, '2021-05-20', '15:09:06', '15:09:35', 13);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `absen_detail`
+-- Table structure for table `absen_detail`
 --
 
 CREATE TABLE `absen_detail` (
@@ -64,16 +63,44 @@ CREATE TABLE `absen_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `absen_detail`
+-- Dumping data for table `absen_detail`
 --
 
 INSERT INTO `absen_detail` (`id_absen_detail`, `absen_id`, `keterangan_masuk`, `keterangan_pulang`, `latitude_masuk`, `latitude_pulang`, `longitude_masuk`, `longitude_pulang`, `keterangan_jadwal`, `foto_masuk`, `foto_pulang`) VALUES
-(57, 91, 'Masuk', 'Pulang', '', '', '', '', 'Reguler', '', '');
+(60, 94, 'Masuk', 'Pulang', '-6.2107262', '', '106.7116815', '', 'Reguler', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `divisi`
+-- Table structure for table `cuti_user`
+--
+
+CREATE TABLE `cuti_user` (
+  `id_cuti_user` int(11) NOT NULL,
+  `id_cuti` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `tgl_cuti` date NOT NULL,
+  `tgl_selesai_cuti` date NOT NULL,
+  `jumlah_cuti_user` int(11) NOT NULL,
+  `alasan_cuti` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_cuti`
+--
+
+CREATE TABLE `data_cuti` (
+  `id_cuti` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `jumlah_cuti` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `divisi`
 --
 
 CREATE TABLE `divisi` (
@@ -82,7 +109,7 @@ CREATE TABLE `divisi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `divisi`
+-- Dumping data for table `divisi`
 --
 
 INSERT INTO `divisi` (`id_divisi`, `divisi`) VALUES
@@ -92,7 +119,7 @@ INSERT INTO `divisi` (`id_divisi`, `divisi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jabatan`
+-- Table structure for table `jabatan`
 --
 
 CREATE TABLE `jabatan` (
@@ -101,7 +128,7 @@ CREATE TABLE `jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `jabatan`
+-- Dumping data for table `jabatan`
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `jabatan`) VALUES
@@ -110,7 +137,7 @@ INSERT INTO `jabatan` (`id_jabatan`, `jabatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal_kerja`
+-- Table structure for table `jadwal_kerja`
 --
 
 CREATE TABLE `jadwal_kerja` (
@@ -119,7 +146,7 @@ CREATE TABLE `jadwal_kerja` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `jadwal_kerja`
+-- Dumping data for table `jadwal_kerja`
 --
 
 INSERT INTO `jadwal_kerja` (`id_jadwal`, `jadwal`) VALUES
@@ -130,7 +157,7 @@ INSERT INTO `jadwal_kerja` (`id_jadwal`, `jadwal`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jam_kerja`
+-- Table structure for table `jam_kerja`
 --
 
 CREATE TABLE `jam_kerja` (
@@ -142,7 +169,7 @@ CREATE TABLE `jam_kerja` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `jam_kerja`
+-- Dumping data for table `jam_kerja`
 --
 
 INSERT INTO `jam_kerja` (`id_jam`, `mulai`, `selesai`, `keterangan`, `jadwal_kerja`) VALUES
@@ -152,7 +179,7 @@ INSERT INTO `jam_kerja` (`id_jam`, `mulai`, `selesai`, `keterangan`, `jadwal_ker
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `karyawan`
+-- Table structure for table `karyawan`
 --
 
 CREATE TABLE `karyawan` (
@@ -168,16 +195,17 @@ CREATE TABLE `karyawan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `karyawan`
+-- Dumping data for table `karyawan`
 --
 
 INSERT INTO `karyawan` (`id_karyawan`, `id_user`, `id_jabatan`, `id_divisi`, `nik`, `nama_karyawan`, `alamat_karyawan`, `foto_karyawan`, `tahun_bergabung`) VALUES
-(2, 10, 1, 1, 'EL-0001', 'rizki', 'ckl', '1', 2021);
+(4, 12, 1, 2, 'EL-0001', 'hrd', 'jakarta', '1', 2015),
+(5, 13, 1, 2, 'EL-0001', 'kelinci', 'tgr', '1', 2021);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -188,18 +216,18 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `id_level`) VALUES
-(1, 'admin', '$2y$10$yRVVO0jgX2skJVTNEnEGh.Hzj0q7HQuhtlW4DLIdvlscOkhwI./va', 1),
-(2, 'hrd', '$2y$10$7n4WNLOu/TVFEi3vu/R/fOVEpe0QxD07A2ALwC/2FltSoE/CZgmKO', 2),
-(10, 'rizki', '$2y$10$a1BjexNMFm6pk57efkA8t.vjZsY.b5FYqhXgKxb2x0xJE.RbAbmPu', 3);
+(1, 'rizki', '$2y$10$D57ydtRTqjoJco0IisE9MeLBdTM3k2Rd8aKimg7wCQc1dCyc0thD2', 1),
+(2, 'hrd', '$2y$10$YrmDxh.1dJHpQ89nOYUSOepfikxPdqRLuK9IV8oiGJMlp64inWyBq', 2),
+(13, 'kelinci', '$2y$10$8BYUXK71G31Wv5gN6gL1W.DPBSKwDO7Zk3iksGIXDifi4MPtHo5ZK', 3);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_akses_menu`
+-- Table structure for table `user_akses_menu`
 --
 
 CREATE TABLE `user_akses_menu` (
@@ -210,7 +238,7 @@ CREATE TABLE `user_akses_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_akses_menu`
+-- Dumping data for table `user_akses_menu`
 --
 
 INSERT INTO `user_akses_menu` (`id_akses`, `id_level`, `id_menu`, `id_sub`) VALUES
@@ -243,7 +271,7 @@ INSERT INTO `user_akses_menu` (`id_akses`, `id_level`, `id_menu`, `id_sub`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_level`
+-- Table structure for table `user_level`
 --
 
 CREATE TABLE `user_level` (
@@ -252,7 +280,7 @@ CREATE TABLE `user_level` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_level`
+-- Dumping data for table `user_level`
 --
 
 INSERT INTO `user_level` (`id_level`, `level`) VALUES
@@ -263,7 +291,7 @@ INSERT INTO `user_level` (`id_level`, `level`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_menu`
+-- Table structure for table `user_menu`
 --
 
 CREATE TABLE `user_menu` (
@@ -274,7 +302,7 @@ CREATE TABLE `user_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_menu`
+-- Dumping data for table `user_menu`
 --
 
 INSERT INTO `user_menu` (`id_menu`, `menu`, `is_active`, `urutan_menu`) VALUES
@@ -285,7 +313,7 @@ INSERT INTO `user_menu` (`id_menu`, `menu`, `is_active`, `urutan_menu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_sub_menu`
+-- Table structure for table `user_sub_menu`
 --
 
 CREATE TABLE `user_sub_menu` (
@@ -299,7 +327,7 @@ CREATE TABLE `user_sub_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user_sub_menu`
+-- Dumping data for table `user_sub_menu`
 --
 
 INSERT INTO `user_sub_menu` (`id_sub`, `id_menu`, `submenu`, `url`, `icon`, `is_active`, `urutan_sub`) VALUES
@@ -322,149 +350,173 @@ INSERT INTO `user_sub_menu` (`id_sub`, `id_menu`, `submenu`, `url`, `icon`, `is_
 --
 
 --
--- Indeks untuk tabel `absen`
+-- Indexes for table `absen`
 --
 ALTER TABLE `absen`
   ADD PRIMARY KEY (`id_absen`);
 
 --
--- Indeks untuk tabel `absen_detail`
+-- Indexes for table `absen_detail`
 --
 ALTER TABLE `absen_detail`
   ADD PRIMARY KEY (`id_absen_detail`);
 
 --
--- Indeks untuk tabel `divisi`
+-- Indexes for table `cuti_user`
+--
+ALTER TABLE `cuti_user`
+  ADD PRIMARY KEY (`id_cuti_user`);
+
+--
+-- Indexes for table `data_cuti`
+--
+ALTER TABLE `data_cuti`
+  ADD PRIMARY KEY (`id_cuti`);
+
+--
+-- Indexes for table `divisi`
 --
 ALTER TABLE `divisi`
   ADD PRIMARY KEY (`id_divisi`);
 
 --
--- Indeks untuk tabel `jabatan`
+-- Indexes for table `jabatan`
 --
 ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
--- Indeks untuk tabel `jadwal_kerja`
+-- Indexes for table `jadwal_kerja`
 --
 ALTER TABLE `jadwal_kerja`
   ADD PRIMARY KEY (`id_jadwal`);
 
 --
--- Indeks untuk tabel `jam_kerja`
+-- Indexes for table `jam_kerja`
 --
 ALTER TABLE `jam_kerja`
   ADD PRIMARY KEY (`id_jam`);
 
 --
--- Indeks untuk tabel `karyawan`
+-- Indexes for table `karyawan`
 --
 ALTER TABLE `karyawan`
   ADD PRIMARY KEY (`id_karyawan`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indeks untuk tabel `user_akses_menu`
+-- Indexes for table `user_akses_menu`
 --
 ALTER TABLE `user_akses_menu`
   ADD PRIMARY KEY (`id_akses`);
 
 --
--- Indeks untuk tabel `user_level`
+-- Indexes for table `user_level`
 --
 ALTER TABLE `user_level`
   ADD PRIMARY KEY (`id_level`);
 
 --
--- Indeks untuk tabel `user_menu`
+-- Indexes for table `user_menu`
 --
 ALTER TABLE `user_menu`
   ADD PRIMARY KEY (`id_menu`);
 
 --
--- Indeks untuk tabel `user_sub_menu`
+-- Indexes for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
   ADD PRIMARY KEY (`id_sub`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `absen`
+-- AUTO_INCREMENT for table `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
--- AUTO_INCREMENT untuk tabel `absen_detail`
+-- AUTO_INCREMENT for table `absen_detail`
 --
 ALTER TABLE `absen_detail`
-  MODIFY `id_absen_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_absen_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT untuk tabel `divisi`
+-- AUTO_INCREMENT for table `cuti_user`
+--
+ALTER TABLE `cuti_user`
+  MODIFY `id_cuti_user` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `data_cuti`
+--
+ALTER TABLE `data_cuti`
+  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `divisi`
 --
 ALTER TABLE `divisi`
   MODIFY `id_divisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `jabatan`
+-- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal_kerja`
+-- AUTO_INCREMENT for table `jadwal_kerja`
 --
 ALTER TABLE `jadwal_kerja`
   MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `jam_kerja`
+-- AUTO_INCREMENT for table `jam_kerja`
 --
 ALTER TABLE `jam_kerja`
   MODIFY `id_jam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `karyawan`
+-- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT untuk tabel `user_akses_menu`
+-- AUTO_INCREMENT for table `user_akses_menu`
 --
 ALTER TABLE `user_akses_menu`
   MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT untuk tabel `user_level`
+-- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
   MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `user_menu`
+-- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
   MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `user_sub_menu`
+-- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
   MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
