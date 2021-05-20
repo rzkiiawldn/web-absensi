@@ -16,15 +16,15 @@
 		<div class="card-body">
 			<form method="post" action="">
 				<input type="hidden" class="form-control" name="id_user" value="<?= $data_user->id_user; ?>" readonly>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="nik">NIK</label>
 					<input type="text" class="form-control" id="nik" name="nik" value="<?= $data_user->nik; ?>" readonly>
-				</div>
+				</div> -->
 				<div class="form-group">
-					<label for="nama">Nama</label>
-					<input type="text" class="form-control" id="nama" name="nama" value="<?= $data_user->nama; ?>">
+					<label for="username">username</label>
+					<input type="text" class="form-control" id="username" name="username" value="<?= $data_user->username; ?>">
 				</div>
-				<?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+				<?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
 				<div class="form-group">
 					<label for="id_level">Level</label>
 					<select class="form-control" name="id_level" value="<?= set_value('id_level'); ?>">

@@ -18,7 +18,7 @@
 							foreach ($data_user as $u) : ?>
 								<tr>
 									<td><?= $no++ ?></td>
-									<td><?= $u->nama ?></td>
+									<td><?= $u->username ?></td>
 									<td>
 										<a href="<?= base_url('absensi/detail_absensi/' . $u->id_user) ?>" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Detail</a>
 									</td>

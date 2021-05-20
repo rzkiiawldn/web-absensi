@@ -41,8 +41,8 @@
                                     <?= $this->session->flashdata('pesan'); ?>
                                     <form class="user" action="<?= base_url('auth/index'); ?>" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="nik" placeholder="Masukan NIK ..." name="nik" value="<?= set_value('nik') ?>">
-                                            <?= form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?>
+                                            <input type="text" class="form-control form-control-user" id="username" placeholder="Masukan username ..." name="username" value="<?= set_value('username') ?>">
+                                            <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
@@ -60,17 +60,17 @@
                                         </tr>
                                         <tr>
                                             <td>Admin</td>
-                                            <td>IT-001</td>
+                                            <td>IT-0001</td>
                                             <td>1234</td>
                                         </tr>
                                         <tr>
                                             <td>HRD</td>
-                                            <td>IT-002</td>
+                                            <td>IT-0002</td>
                                             <td>1234</td>
                                         </tr>
                                         <tr>
                                             <td>Pegawai</td>
-                                            <td>IT-003</td>
+                                            <td>IT-0003</td>
                                             <td>1234</td>
                                         </tr>
                                     </table>

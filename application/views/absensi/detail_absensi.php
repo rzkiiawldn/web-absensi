@@ -49,12 +49,12 @@
                                 <tr>
                                     <th width="20%">Nama</th>
                                     <th width="10%">:</th>
-                                    <th width="20%"><?= $data_user->nama; ?></th>
+                                    <th width="20%"><?= $data_user->username; ?></th>
                                 </tr>
                                 <tr>
                                     <th>Status</th>
                                     <th>:</th>
-                                    <th><?= $data_user->id_level; ?></th>
+                                    <th><?= $data_user->level; ?></th>
                                 </tr>
                             </table>
                         </div>
@@ -74,10 +74,10 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
-                                <th>No</th>
-                                <th>tgl</th>
-                                <th>Jam Masuk</th>
-                                <th>Jam Keluar</th>
+                                <th width="5%">No</th>
+                                <th width="20%">tgl</th>
+                                <th width="20%">Jam Masuk</th>
+                                <th width="20%">Jam Keluar</th>
                             </thead>
                             <tbody>
                                 <?php if ($absen) : ?>
@@ -88,13 +88,15 @@
                                         <tr <?= (in_array($h['hari'], ['Sabtu', 'Minggu'])) ? 'class="bg-warning text-dark"' : '' ?> <?= ($absen_harian == '') ? 'class="bg-danger text-white"' : '' ?>>
                                             <td><?= ($i + 1) ?></td>
                                             <td><?= $h['hari'] . ', ' . $h['tgl'] ?></td>
-                                            <td><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_masuk'], 'masuk') ?></td>
-                                            <td><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_pulang'], 'pulang') ?></td>
+                                            <td><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_masuk'], 'masuk') ?>
+                                            </td>
+                                            <td><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_pulang'], 'pulang') ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
-                                        <td class="bg-light text-center" colspan="4">Tidak ada data absen</td>
+                                        <td class="bg-light text-center" colspan="6">Tidak ada data absen</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>

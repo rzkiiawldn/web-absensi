@@ -25,8 +25,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Nik</th>
-              <th>Nama</th>
+              <th>username</th>
               <th>Level</th>
               <th>Aksi</th>
             </tr>
@@ -37,8 +36,7 @@
             <tbody>
               <tr>
                 <td><?= $no++; ?></td>
-                <td><?= $user->nik; ?></td>
-                <td><?= $user->nama; ?></td>
+                <td><?= $user->username; ?></td>
                 <td><?= $user->level; ?></td>
                 <td>
                   <!-- <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit<?= $user->id_user; ?>">edit</a> -->
@@ -66,13 +64,13 @@
       </div>
       <form action="" method="post">
         <div class="modal-body">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="nik">NIK</label>
             <input type="text" class="form-control" id="nik" name="nik" value="IT-<?= sprintf("%04s", $nik) ?>" readonly>
-          </div>
+          </div> -->
           <div class="form-group">
-            <label for="nama">Nama</label>
-            <input type="text" class="form-control" id="nama" name="nama">
+            <label for="username">username</label>
+            <input type="text" class="form-control" id="username" name="username">
           </div>
           <div class="form-group">
             <label for="password1">Password</label>
@@ -107,13 +105,13 @@
         </div>
         <form action="" method="post">
           <div class="modal-body">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="nik">NIK</label>
               <input type="text" class="form-control" id="nik" name="nik" value="<?= $user->nik; ?>" readonly>
-            </div>
+            </div> -->
             <div class="form-group">
-              <label for="nama">Nama</label>
-              <input type="text" class="form-control" id="nama" name="nama" value="<?= $user->nama; ?>">
+              <label for="username">username</label>
+              <input type="text" class="form-control" id="username" name="username" value="<?= $user->username; ?>">
             </div>
             <div class="form-group">
               <label for="password1">Password</label>

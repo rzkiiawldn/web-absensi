@@ -21,6 +21,7 @@ function check_jam($jam, $status, $raw = false)
         $status = ucfirst($status);
         $CI = &get_instance();
         $jam_kerja = $CI->absensi_model->db->where('keterangan', $status)->get('jam_kerja')->row();
+        // $absen_detail = $CI->db->query("SELECT * FROM absen_detail ad JOIN absen a ON ad.id_absen = a.id_absen WHERE keterangan = '$status'")->row();
 
         if ($status == 'Masuk' && $jam > $jam_kerja->selesai) {
             if ($raw) {
@@ -29,7 +30,7 @@ function check_jam($jam, $status, $raw = false)
                     'text' => $jam
                 ];
             } else {
-                return '<span class="badge badge-danger">' . $jam . ' Telat</span>';
+                return "<span class='badge badge-danger'>" . $jam . "Telat</span> <a href='1' class='badge badge-info'>detail</a>";
             }
         } elseif ($status == 'Pulang' && $jam > $jam_kerja->selesai) {
             if ($raw) {
@@ -38,7 +39,7 @@ function check_jam($jam, $status, $raw = false)
                     'text' => $jam
                 ];
             } else {
-                return '<span class="badge badge-success">' . $jam . ' Lembur</span>';
+                return "<span class='badge badge-success'>" . $jam . " Lembur</span> <a href='1' class='badge badge-info'>detail</a>";
             }
         } else {
             if ($raw) {
@@ -47,7 +48,7 @@ function check_jam($jam, $status, $raw = false)
                     'text' => $jam
                 ];
             } else {
-                return '<span class="badge badge-primary">' . $jam . ' Tepat Waktu</span>';
+                return "<span class='badge badge-primary'>" . $jam . " Tepat Waktu</span> <a href='1' class='badge badge-info'>detail</a>";
             }
         }
     } else {

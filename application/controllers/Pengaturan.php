@@ -13,7 +13,7 @@ class Pengaturan extends CI_Controller
 	{
 		$data = [
 			'judul'		=> 'Menu',
-			'user'      => $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row(),
+			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
 			'menu'		=> $this->db->get('user_menu')->result()
 		];
 		$this->load->view('template/_header', $data);
@@ -74,7 +74,7 @@ class Pengaturan extends CI_Controller
 	{
 		$data = [
 			'judul'		=> 'Submenu',
-			'user'      => $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row(),
+			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
 			'submenu'	=> $this->db->query('SELECT um.id_menu, um.menu, usm.id_sub, usm.submenu, usm.id_menu, usm.url, usm.icon, usm.is_active, usm.urutan_sub FROM user_menu um JOIN user_sub_menu usm ON um.id_menu = usm.id_menu ORDER BY um.menu ASC ')->result(),
 			'menu'		=> $this->db->get('user_menu')->result(),
 		];
@@ -146,7 +146,7 @@ class Pengaturan extends CI_Controller
 	{
 		$data = [
 			'judul'			=> 'Hak Akses',
-			'user'      	=> $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row(),
+			'user'      	=> $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
 			'level'			=> $this->db->get('user_level')->result()
 		];
 		$this->load->view('template/_header', $data);
@@ -158,7 +158,7 @@ class Pengaturan extends CI_Controller
 	{
 		$data = [
 			'judul'			=> 'Hak Akses Menu',
-			'user'      	=> $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row(),
+			'user'      	=> $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
 			'level'			=> $this->db->get_where('user_level', ['id_level' => $id_level])->row(),
 			'submenu'		=> $this->db->query('SELECT um.id_menu, um.menu, usm.id_sub, usm.submenu, usm.id_menu FROM user_menu um JOIN user_sub_menu usm ON um.id_menu = usm.id_menu ORDER BY um.menu ASC')->result(),
 		];

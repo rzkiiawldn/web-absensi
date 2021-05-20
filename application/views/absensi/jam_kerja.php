@@ -6,6 +6,9 @@
     <div class="col">
       <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
     </div>
+    <div class="col">
+      <a href="" class="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+    </div>
   </div>
   <div class="row">
     <div class="col">
@@ -21,8 +24,8 @@
           <thead>
             <tr>
               <th width="5%">#</th>
-              <th>Mulai</th>
-              <th>Selesai</th>
+              <th>mulai</th>
+              <th>selesai</th>
               <th>Keterangan</th>
               <?php if ($user->id_level == 3) {
               } else { ?>
@@ -68,16 +71,19 @@
       <form action="<?= base_url('absensi/tambah_jam_kerja'); ?>" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="mulai">Mulai</label>
+            <label for="mulai">mulai</label>
             <input type="time" class="form-control" id="mulai" name="mulai">
           </div>
           <div class="form-group">
-            <label for="selesai">Selesai</label>
+            <label for="selesai">selesai</label>
             <input type="time" class="form-control" id="selesai" name="selesai">
           </div>
           <div class="form-group">
             <label for="keterangan">Keterangan</label>
-            <input type="text" class="form-control" id="keterangan" name="keterangan">
+            <select class="form-control" name="keterangan">
+              <option value="Masuk">Masuk</option>
+              <option value="Pulang">Pulang</option>
+            </select>
           </div>
         </div>
         <div class="modal-footer">
@@ -114,8 +120,16 @@
               <input type="time" class="form-control" id="selesai" name="selesai" value="<?= $jam->selesai; ?>">
             </div>
             <div class="form-group">
-              <label for="keterangan">keterangan</label>
-              <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?= $jam->keterangan; ?>">
+              <label for="keterangan">Keterangan</label>
+              <select class="form-control" name="keterangan">
+                <?php if($jam->keterangan == 'Masuk') { ?>
+                <option value="Masuk" selected>Masuk</option>
+                <option value="Pulang">Pulang</option>
+              <?php } else { ?>
+                <option value="Masuk">Masuk</option>
+                <option value="Pulang" selected="">Pulang</option>
+              <?php } ?>
+              </select>
             </div>
           </div>
           <div class="modal-footer">

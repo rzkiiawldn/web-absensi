@@ -5,7 +5,7 @@ function belum_login()
     // buat instansiasi, karena kita tidak bisa membuat this begitu saja
     $ci = get_instance();
     // jika user belum login maka arahkan ke halaman login
-    if (!$ci->session->userdata('nik')) {
+    if (!$ci->session->userdata('username')) {
         redirect('auth');
     } else {
         // jika sudah login di cek dulu, user tersebut dari level apa dengan cara mengambil data dari session level

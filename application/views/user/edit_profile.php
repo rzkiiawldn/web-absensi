@@ -18,15 +18,15 @@
 		<div class="card-body">
 			<form method="post" action="">
 				<input type="hidden" class="form-control" name="id_user" value="<?= $user->id_user; ?>" readonly>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="nik">NIK</label>
 					<input type="text" class="form-control" id="nik" name="nik" value="<?= $user->nik; ?>" readonly>
-				</div>
+				</div> -->
 				<div class="form-group">
-					<label for="nama">Nama</label>
-					<input type="text" class="form-control" id="nama" name="nama" value="<?= $user->nama; ?>">
+					<label for="username">username</label>
+					<input type="text" class="form-control" id="username" name="username" value="<?= $user->username; ?>">
 				</div>
-				<?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+				<?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
 				<hr>
 				<small class="text-danger">Kosongkan jika password tidak diganti</small>
 				<div class="form-group mt-3">
