@@ -20,35 +20,27 @@ function check_jam($jam, $status, $raw = false)
     if ($jam) {
         $status = ucfirst($status);
         $CI = &get_instance();
-        $jam_kerja = $CI->absensi_model->db->where('keterangan', $status)->get('jam_kerja')->row();
+        $jam_masuk = $CI->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen")->row();
+        // $jam_kerja = $CI->absensi_model->db->where('keterangan', $status)->get('jam_kerja')->row();
         // $absen_detail = $CI->db->query("SELECT * FROM absen_detail ad JOIN absen a ON ad.id_absen = a.id_absen WHERE keterangan = '$status'")->row();
 
-        if ($status == 'Masuk' && $jam > $jam_kerja->selesai) {
+        if ($status == 'Masuk') {
             if ($raw) {
                 return [
-                    'status' => 'telat',
+                    // 'status' => 'telat',
                     'text' => $jam
                 ];
             } else {
-                return "<span class='badge badge-danger'>" . $jam . "Telat</span> <a href='1' class='badge badge-info'>detail</a>";
+                return "<span class='badge badge-success'>" . $jam . "</span> <a href='1' class='badge badge-info'>detail</a>";
             }
-        } elseif ($status == 'Pulang' && $jam > $jam_kerja->selesai) {
+        }  else {
             if ($raw) {
                 return [
-                    'status' => 'lembur',
+                    // 'status' => 'normal',
                     'text' => $jam
                 ];
             } else {
-                return "<span class='badge badge-success'>" . $jam . " Lembur</span> <a href='1' class='badge badge-info'>detail</a>";
-            }
-        } else {
-            if ($raw) {
-                return [
-                    'status' => 'normal',
-                    'text' => $jam
-                ];
-            } else {
-                return "<span class='badge badge-primary'>" . $jam . " Tepat Waktu</span> <a href='1' class='badge badge-info'>detail</a>";
+                return "<span class='badge badge-primary'>" . $jam . "</span> <a href='1' class='badge badge-info'>detail</a>";
             }
         }
     } else {
