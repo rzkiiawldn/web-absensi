@@ -106,11 +106,11 @@
   </div>
 </div>
 
-<div class="modal fade" id="pulang" tabindex="-1" aria-labelledby="pulangLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="masuk" tabindex="-1" aria-labelledby="masukLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="pulangLabel">Absen pulang</h5>
+        <h5 class="modal-title" id="masukLabel">Absen masuk</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -128,7 +128,38 @@
                   <input type="hidden" required="true" name="id_absen" value="<?=$id_absen?>">
                   <input type="hidden" required="true" name="foto" id="foto">
                   <input type="hidden" required="true" name="long" id="long">
-                  <input type="hidden" required="true" name="lat" id="lat">
+                  <input type="hidden" required="true" name="lat" id="lat"> 
+                  <button class="btn btn-block btn-primary" type="submit">Submit</button>
+                </form>
+              </div>
+        </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="modal fade" id="pulang" tabindex="-1" aria-labelledby="pulangLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pulangLabel">Absen pulang</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <div class="card-body">
+                <video class="embed-responsive" id="webcam_pulang" style="display: none;" autoplay playsinline ></video>
+                <img id="hasil_gambar_pulang" class="embed-responsive" style="display: none" src="">
+                <canvas id="canvas_pulang" class="d-none"></canvas>
+                <audio id="snapSound_pulang" src="audio/snap.wav" preload = "auto"></audio>
+                <button id="camera_pulang" onclick="picture_pulang()" type="button" class="btn btn-block btn-default mb-2">Open Camera</button>
+                <button id="candak_gambar_pulang" style="display: none;" onclick="take_picture_pulang()" type="button" class="btn btn-block btn-default mb-2">Take Picture</button>
+                <form method="post" action="<?=site_url('absensi/status') ?>">
+                  <input type="hidden" required="true" name="act"  value="<?=$act?>">
+                  <input type="hidden" required="true" name="id_absen" value="<?=$id_absen?>">
+                  <input type="hidden" required="true" name="foto" id="foto_pulang">
+                  <input type="hidden" required="true" name="long" id="long_pulang">
+                  <input type="hidden" required="true" name="lat" id="lat_pulang"> 
                   <button class="btn btn-block btn-primary" type="submit">Submit</button>
                 </form>
               </div>
@@ -137,8 +168,8 @@
   </div>
 </div>
 
-<!-- 
-<div class="modal fade" id="pulang<?= $id->id_absen; ?>" tabindex="-1" aria-labelledby="pulangLabel" aria-hidden="true">
+
+<!-- <div class="modal fade" id="pulang<?= $id->id_absen; ?>" tabindex="-1" aria-labelledby="pulangLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

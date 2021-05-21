@@ -21,12 +21,19 @@
                             </tr>                            
                             <tr>
                                 <th width="20%">Foto Masuk</th>
-                                <td>: <img src="<?= $absen_detail->foto_masuk ?>" alt=""></td>
+                                <td>: <img src="<?= $absen_detail->foto_masuk ?>" alt="" width="200px"></td>
                             </tr>
                             <tr>
                                 <th width="20%">Lokasi Masuk</th>
                                 <td>: 
-                                    <iframe src="https://maps.google.com/mapas?q=+<?= $absen_detail->latitude_masuk ?>+,+<?= $absen_detail->longitude_masuk ?>+&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                    <iframe 
+                                        frameborder="0" 
+                                        scrolling="no" 
+                                        marginheight="0" 
+                                        marginwidth="0" 
+                                        src="https://maps.google.com/maps?q=+<?= $absen_detail->latitude_masuk ?>+,+<?= $absen_detail->longitude_masuk ?>+&output=embed"
+                                       >
+                                    </iframe>
                                 </td>
                             </tr>
                             <tr>
@@ -35,7 +42,7 @@
                             </tr>
                             <tr>
                                 <th width="20%">Foto Pulang</th>
-                                <td>: <img src="<?= $absen_detail->foto_masuk ?>" alt=""></td>
+                                <td>: <img src="<?= $absen_detail->foto_pulang ?>" alt="" width="200px"></td>
                             </tr>
 					</table>
 				</div>

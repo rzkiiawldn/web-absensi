@@ -68,7 +68,7 @@
                             <h4 class="card-title mb-4">Absen Bulan : <?= bulan($bulan) . ' ' . $tahun ?></h4>
                         </div>
                         <div class="col-4">
-                            <a href="<?= base_url('absensi/cetak_data_absensi/' . $data_user->id_user); ?>" class="btn btn-outline-secondary float-right" target="_blank"><i class="fas fa-print"></i> Cetak Data</a>
+                            <!-- <a href="<?= base_url('absensi/cetak_data_absensi/' . $data_user->id_user); ?>" class="btn btn-outline-secondary float-right" target="_blank"><i class="fas fa-print"></i> Cetak Data</a> -->
                         </div>
                     </div>
                     <div class="table-responsive">
