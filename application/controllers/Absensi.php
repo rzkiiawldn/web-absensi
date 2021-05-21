@@ -85,6 +85,19 @@ class Absensi extends CI_Controller
         $this->load->view('template/_footer');
     }
 
+    public function detail($id_absen)
+    {
+        $data = [
+            'judul'     => 'Detail',
+            'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
+            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen JOIN user ON absen.id_user AND user.id_user JOIN karyawan ON karyawan.id_user = user.id_user WHERE absen_detail.absen_id = '$id_absen'")->row()
+
+        ];
+        $this->load->view('template/_header', $data);
+        $this->load->view('absensi/detail');
+        $this->load->view('template/_footer');
+    }
+
     public function data_absensi()
     {
         $data = [
@@ -146,27 +159,6 @@ class Absensi extends CI_Controller
         redirect('absensi');
     }
 
-
-    public function pulang($id_absen)
-    {
-        $id_absen = $this->input->post('id_absen');
-        $foto = $this->input->post('foto');
-
-        $absen_pulang = date('H:i:s');
-
-        $this->db->set('absen_pulang', $absen_pulang);
-        $this->db->set('keterangan_pulang', 'Pulang');
-        $this->db->where('id_absen', $id_absen);
-        $this->db->update('absen');
-
-        $this->db->set('keterangan_pulang_detail', 'Pulang');
-        $this->db->set('foto_pulang', $foto);
-        $this->db->update('absen_detail');
-
-        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Anda berhasil absen</div>');
-        redirect('absensi/detail_absensi');
-
-    }
 
     public function jam_kerja()
     {

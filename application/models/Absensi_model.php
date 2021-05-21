@@ -4,7 +4,8 @@ class Absensi_model extends CI_Model
 {
     public function get_absen($id_user, $bulan, $tahun)
     {
-        $this->db->select("DATE_FORMAT(a.tanggal, '%d-%m-%Y') AS tgl, a.absen_masuk AS jam_masuk, (SELECT absen_masuk FROM absen al JOIN absen_detail ad ON al.id_absen = ad.absen_id WHERE al.tanggal = a.tanggal AND id_user = '$id_user' AND ad.keterangan_masuk != ad.keterangan_masuk) AS jam_pulang");
+        $this->db->select("DATE_FORMAT(a.tanggal, '%d-%m-%Y') AS tgl, a.absen_masuk AS jam_masuk, DATE_FORMAT(a.tanggal, '%d-%m-%Y') AS tgl, a.absen_pulang AS jam_pulang, a.id_absen, ad.keterangan_jadwal");
+        $this->db->join('absen_detail ad','ad.absen_id = a.id_absen');
         $this->db->where('id_user', $id_user);
         $this->db->where("DATE_FORMAT(tanggal, '%m') = ", $bulan);
         $this->db->where("DATE_FORMAT(tanggal, '%Y') = ", $tahun);

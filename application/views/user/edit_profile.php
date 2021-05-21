@@ -17,11 +17,6 @@
 	<div class="card shadow mb-4">
 		<div class="card-body">
 			<form method="post" action="">
-				<input type="hidden" class="form-control" name="id_user" value="<?= $user->id_user; ?>" readonly>
-				<!-- <div class="form-group">
-					<label for="nik">NIK</label>
-					<input type="text" class="form-control" id="nik" name="nik" value="<?= $user->nik; ?>" readonly>
-				</div> -->
 				<div class="form-group">
 					<label for="username">username</label>
 					<input type="text" class="form-control" id="username" name="username" value="<?= $user->username; ?>">

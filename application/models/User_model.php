@@ -47,8 +47,8 @@ class User_model extends CI_Model
 	// kode nik bertambah otomatis
 	public function cek_nik()
 	{
-		$query = $this->db->query("SELECT MAX(id_user) as id_user from user");
+		$query = $this->db->query("SELECT MAX(nik) as nik from karyawan");
 		$hasil = $query->row();
-		return $hasil->id_user;
+		return $hasil->nik;
 	}
 }

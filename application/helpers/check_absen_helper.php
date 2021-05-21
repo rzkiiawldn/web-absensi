@@ -21,8 +21,7 @@ function check_jam($jam, $status, $raw = false)
         $status = ucfirst($status);
         $CI = &get_instance();
         $jam_masuk = $CI->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen")->row();
-        // $jam_kerja = $CI->absensi_model->db->where('keterangan', $status)->get('jam_kerja')->row();
-        // $absen_detail = $CI->db->query("SELECT * FROM absen_detail ad JOIN absen a ON ad.id_absen = a.id_absen WHERE keterangan = '$status'")->row();
+
 
         if ($status == 'Masuk') {
             if ($raw) {
@@ -31,7 +30,7 @@ function check_jam($jam, $status, $raw = false)
                     'text' => $jam
                 ];
             } else {
-                return "<span class='badge badge-success'>" . $jam . "</span> <a href='1' class='badge badge-info'>detail</a>";
+                return "<span class='badge badge-success'>" . $jam . "</span>";
             }
         }  else {
             if ($raw) {
@@ -40,17 +39,17 @@ function check_jam($jam, $status, $raw = false)
                     'text' => $jam
                 ];
             } else {
-                return "<span class='badge badge-primary'>" . $jam . "</span> <a href='1' class='badge badge-info'>detail</a>";
+                return "<span class='badge badge-primary'>" . $jam . "</span>";
             }
         }
     } else {
         if ($raw) {
             return [
                 'status' => 'normal',
-                'text' => 'Tidak Hadir'
+                'text' => 'Belum Absen'
             ];
         }
-        return 'Tidak Hadir';
+        return 'Belum Absen';
     }
 }
 

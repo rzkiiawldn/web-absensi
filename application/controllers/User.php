@@ -291,21 +291,21 @@ class User extends CI_Controller
 
 	public function edit_profile()
 	{
+		$data = [
+			'judul'		=> 'Edit Profile',
+			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
+			'level'		=> $this->user_model->get_level()
+		];
 		$this->form_validation->set_rules('username', 'username', 'required|trim');
 		$this->form_validation->set_rules('password1', 'Password', 'trim|min_length[4]', [
 			'min_length' => 'password terlalu lemah',
 		]);
 		if ($this->form_validation->run() == false) {
-			$data = [
-				'judul'		=> 'Edit Profile',
-				'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-				'level'		=> $this->user_model->get_level()
-			];
 			$this->load->view('template/_header', $data);
 			$this->load->view('user/edit_profile');
 			$this->load->view('template/_footer');
 		} else {
-			$id_user 	= htmlspecialchars($this->input->post('id_user', TRUE));
+			$id_user 	= $data['user']['id_user'];
 			$username 	= htmlspecialchars($this->input->post('username', TRUE));
 			$password 	= $this->input->post('password1');
 

@@ -17,17 +17,17 @@ function belum_login()
 
         // lalu query menu untuk mendapatkan id_menu
         $queryMenu  = $ci->db->get_where('user_menu', ['menu'  => $menu])->row_array();
-        $menuId    = $queryMenu['id_menu'];
+        $menuId     = $queryMenu['id_menu'];
 
         $submenu    = $ci->db->get_where('user_sub_menu', ['id_menu' => $menuId])->row_array();
         $id_menu    = $submenu['id_menu'];
-        $id_sub        = $submenu['id_sub'];
+        $id_sub     = $submenu['id_sub'];
 
         // kemudian cek id menu dan cocokan dengan tb akses menu
         $queryAccessMenu    = $ci->db->get_where('user_akses_menu', [
             'id_level'  => $id_level,
             'id_menu'   => $id_menu,
-            'id_sub'       => $id_sub
+            'id_sub'    => $id_sub
         ]);
 
         // lalu di cek kembali, jika user akses ada datanya maka jalankan

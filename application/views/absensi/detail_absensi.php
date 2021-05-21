@@ -78,6 +78,8 @@
                                 <th width="20%">tgl</th>
                                 <th width="20%">Jam Masuk</th>
                                 <th width="20%">Jam Keluar</th>
+                                <th width="20%">Jadwal Kerja</th>
+                                <th width="5%">Aksi</th>
                             </thead>
                             <tbody>
                                 <?php if ($absen) : ?>
@@ -90,11 +92,14 @@
                                             <td><?= $h['hari'] . ', ' . $h['tgl'] ?></td>
                                             <td><?= check_jam(@$absen_harian['jam_masuk'], 'masuk') ?></td>
                                             <td><?= check_jam(@$absen_harian['jam_pulang'], 'pulang') ?></td>
+                                            <td><?= @$absen_harian['keterangan_jadwal']; ?></td>
+                                            <!-- <td><a href="<?= base_url('absensi/detail/'. @$absen_harian['id_absen']) ?>" class="badge badge-info">detail</a></td> -->
+                                            <td><?= @$absen_harian['id_absen'] != null ? "<a href='". base_url('absensi/detail/'. @$absen_harian['id_absen'])."' class='badge badge-info'>detail</a>" : ''; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
-                                        <td class="bg-light text-center" colspan="6">Tidak ada data absen</td>
+                                        <td class="bg-light text-center" colspan="8">Tidak ada data absen</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>

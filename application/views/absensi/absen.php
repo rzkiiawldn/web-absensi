@@ -30,12 +30,14 @@
                         <td>
                           <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#masuk">Absen Masuk</a>
                         </td>
+                        <td><div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-success disabled">Absen Pulang</a></div></td>
                       <?php } elseif($today['absen_masuk'] != null AND $today['absen_pulang'] == null) { ?>
+                        <td><div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-primary disabled">Absen Masuk</a></div></td>
                         <td>
                           <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#pulang">Absen Pulang</a>
                         </td>
                       <?php } else { ?>
-                        <td colspan="2"> kamu sudah absen</td>
+                        <td colspan="2" class="bg-danger text-white">Hari ini kamu sudah absen</td>
                       <?php } ?>
 									</tr>
 								</table>
