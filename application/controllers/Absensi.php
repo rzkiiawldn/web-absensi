@@ -45,8 +45,6 @@ class Absensi extends CI_Controller
             'act'       => $act,
             'absen'     => $this->absensi_model->absensi_harian($user->id_user)->num_rows(),
             'jadwal'    => $this->db->get('jadwal_kerja')->result(),
-            'jam_masuk' => $this->db->get_where('jam_kerja', ['keterangan' => 'Masuk'])->row(),
-            'jam_pulang'=> $this->db->get_where('jam_kerja', ['keterangan' => 'Pulang'])->row(),
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
         ];
         $this->load->view('template/_header', $data);
@@ -165,7 +163,8 @@ class Absensi extends CI_Controller
         $data = [
             'judul'     => 'Jam Kerja',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'jam_kerja' => $this->db->get('jam_kerja')->result()
+            'jam_kerja' => $this->db->query('SELECT * FROM jam_kerja JOIN jadwal_kerja ON jam_kerja.jadwal_kerja = jadwal_kerja.id_jadwal')->result(),
+            'jadwal_kerja' => $this->db->get('jadwal_kerja')->result()
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('absensi/jam_kerja');
@@ -175,9 +174,9 @@ class Absensi extends CI_Controller
     {
         $data = [
             'id_jam'        => $this->input->post('id_jam'),
-            'mulai'         => $this->input->post('mulai'),
-            'selesai'       => $this->input->post('selesai'),
-            'keterangan'    => $this->input->post('keterangan'),
+            'masuk'         => $this->input->post('masuk'),
+            'pulang'       => $this->input->post('pulang'),
+            'jadwal_kerja'    => $this->input->post('jadwal_kerja'),
         ];
 
         $this->db->insert('jam_kerja', $data);
@@ -188,13 +187,13 @@ class Absensi extends CI_Controller
     public function edit_jam_kerja($id_jam)
     {
         $id_jam         = $this->input->post('id_jam');
-        $mulai          = $this->input->post('mulai');
-        $selesai        = $this->input->post('selesai');
-        $keterangan     = $this->input->post('keterangan');
+        $masuk          = $this->input->post('masuk');
+        $pulang        = $this->input->post('pulang');
+        $jadwal_kerja     = $this->input->post('jadwal_kerja');
 
-        $this->db->set('mulai', $mulai);
-        $this->db->set('selesai', $selesai);
-        $this->db->set('keterangan', $keterangan);
+        $this->db->set('masuk', $masuk);
+        $this->db->set('pulang', $pulang);
+        $this->db->set('jadwal_kerja', $jadwal_kerja);
         $this->db->where('id_jam', $id_jam);
         $this->db->update('jam_kerja');
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Jam kerja berhasil di ubah</div>');

@@ -6,9 +6,12 @@
     <div class="col">
       <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
     </div>
+    <?php if ($user->id_level == 3) {
+    } else { ?>
     <div class="col">
       <a href="" class="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
     </div>
+    <?php } ?>
   </div>
   <div class="row">
     <div class="col">
@@ -24,9 +27,9 @@
           <thead>
             <tr>
               <th width="5%">#</th>
-              <th>mulai</th>
-              <th>selesai</th>
-              <th>Keterangan</th>
+              <th>Masuk</th>
+              <th>Pulang</th>
+              <th>Jadwal Kerja</th>
               <?php if ($user->id_level == 3) {
               } else { ?>
                 <th width="20%">Aksi</th>
@@ -39,9 +42,9 @@
             <tbody>
               <tr>
                 <td><?= $no++; ?></td>
-                <td><?= $jam->mulai; ?></td>
-                <td><?= $jam->selesai; ?></td>
-                <td><?= $jam->keterangan; ?></td>
+                <td><?= $jam->masuk; ?></td>
+                <td><?= $jam->pulang; ?></td>
+                <td><?= $jam->jadwal; ?></td>
                 <?php if ($user->id_level == 3) {
                 } else { ?>
                   <td>
@@ -71,18 +74,19 @@
       <form action="<?= base_url('absensi/tambah_jam_kerja'); ?>" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="mulai">mulai</label>
-            <input type="time" class="form-control" id="mulai" name="mulai">
+            <label for="masuk">masuk</label>
+            <input type="time" class="form-control" id="masuk" name="masuk">
           </div>
           <div class="form-group">
-            <label for="selesai">selesai</label>
-            <input type="time" class="form-control" id="selesai" name="selesai">
+            <label for="pulang">pulang</label>
+            <input type="time" class="form-control" id="pulang" name="pulang">
           </div>
           <div class="form-group">
-            <label for="keterangan">Keterangan</label>
-            <select class="form-control" name="keterangan">
-              <option value="Masuk">Masuk</option>
-              <option value="Pulang">Pulang</option>
+            <label for="jadwal_kerja">jadwal kerja</label>
+            <select class="form-control" name="jadwal_kerja">
+              <?php foreach($jadwal_kerja as $jadwal) : ?>
+              <option value="<?= $jadwal->id_jadwal ?>"><?= $jadwal->jadwal ?></option>
+              <?php endforeach ?>
             </select>
           </div>
         </div>
@@ -112,24 +116,24 @@
           <div class="modal-body">
             <input type="hidden" class="form-control" id="id_jam" name="id_jam" value="<?= $jam->id_jam; ?>">
             <div class="form-group">
-              <label for="mulai">mulai</label>
-              <input type="time" class="form-control" id="mulai" name="mulai" value="<?= $jam->mulai; ?>">
+              <label for="masuk">masuk</label>
+              <input type="time" class="form-control" id="masuk" name="masuk" value="<?= $jam->masuk; ?>">
             </div>
             <div class="form-group">
-              <label for="selesai">selesai</label>
-              <input type="time" class="form-control" id="selesai" name="selesai" value="<?= $jam->selesai; ?>">
+              <label for="pulang">pulang</label>
+              <input type="time" class="form-control" id="pulang" name="pulang" value="<?= $jam->pulang; ?>">
             </div>
             <div class="form-group">
-              <label for="keterangan">Keterangan</label>
-              <select class="form-control" name="keterangan">
-                <?php if($jam->keterangan == 'Masuk') { ?>
-                <option value="Masuk" selected>Masuk</option>
-                <option value="Pulang">Pulang</option>
+              <label for="jadwal_kerja">jadwal_kerja</label>
+              <select class="form-control" name="jadwal_kerja">
+              <?php foreach($jadwal_kerja as $jadwal) : ?>
+              <?php if($jadwal->id_jadwal == $jam->jadwal_kerja) { ?>
+              <option value="<?= $jadwal->id_jadwal ?>" selected><?= $jadwal->jadwal ?></option>
               <?php } else { ?>
-                <option value="Masuk">Masuk</option>
-                <option value="Pulang" selected="">Pulang</option>
+                <option value="<?= $jadwal->id_jadwal ?>"><?= $jadwal->jadwal ?></option>
               <?php } ?>
-              </select>
+              <?php endforeach ?>
+            </select>
             </div>
           </div>
           <div class="modal-footer">

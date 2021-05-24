@@ -29,13 +29,13 @@ class Absensi_model extends CI_Model
     }
 
 
-    public function get_jam_by_time($time)
-    {
-        $this->db->where('mulai', $time, '<=');
-        $this->db->or_where('selesai', $time, '>=');
-        $data = $this->db->get('jam_kerja');
-        return $data->row();
-    }
+    // public function get_jam_by_time($time)
+    // {
+    //     $this->db->where('mulai', $time, '<=');
+    //     $this->db->or_where('selesai', $time, '>=');
+    //     $data = $this->db->get('jam_kerja');
+    //     return $data->row();
+    // }
 
     public function today($id_user)
     {

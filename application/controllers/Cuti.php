@@ -14,7 +14,7 @@ class Cuti extends CI_Controller
 		$data = [
 			'judul'		=> 'Data Cuti',
 			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-			'cuti'		=> $this->db->get('data_cuti')->result()
+			'cuti'		=> $this->db->query('SELECT * FROM cuti_user JOIN data_cuti ON cuti_user.id_cuti = data_cuti.id_cuti JOIN user ON user.id_user = cuti_user.id_user JOIN karyawan ON karyawan.id_user = user.id_user')->result()
 		];
 		$this->load->view('template/_header', $data);
 		$this->load->view('cuti/index');
