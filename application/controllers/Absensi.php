@@ -164,7 +164,6 @@ class Absensi extends CI_Controller
             'judul'     => 'Jam Kerja',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
             'jam_kerja' => $this->db->query('SELECT * FROM jam_kerja JOIN jadwal_kerja ON jam_kerja.jadwal_kerja = jadwal_kerja.id_jadwal')->result(),
-            'jadwal_kerja' => $this->db->get('jadwal_kerja')->result()
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('absensi/jam_kerja');

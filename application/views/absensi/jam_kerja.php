@@ -82,12 +82,8 @@
             <input type="time" class="form-control" id="pulang" name="pulang">
           </div>
           <div class="form-group">
-            <label for="jadwal_kerja">jadwal kerja</label>
-            <select class="form-control" name="jadwal_kerja">
-              <?php foreach($jadwal_kerja as $jadwal) : ?>
-              <option value="<?= $jadwal->id_jadwal ?>"><?= $jadwal->jadwal ?></option>
-              <?php endforeach ?>
-            </select>
+            <label for="jadwal_kerja">jadwal_kerja</label>
+            <input type="text" class="form-control" id="jadwal_kerja" name="jadwal_kerja">
           </div>
         </div>
         <div class="modal-footer">
@@ -125,15 +121,7 @@
             </div>
             <div class="form-group">
               <label for="jadwal_kerja">jadwal_kerja</label>
-              <select class="form-control" name="jadwal_kerja">
-              <?php foreach($jadwal_kerja as $jadwal) : ?>
-              <?php if($jadwal->id_jadwal == $jam->jadwal_kerja) { ?>
-              <option value="<?= $jadwal->id_jadwal ?>" selected><?= $jadwal->jadwal ?></option>
-              <?php } else { ?>
-                <option value="<?= $jadwal->id_jadwal ?>"><?= $jadwal->jadwal ?></option>
-              <?php } ?>
-              <?php endforeach ?>
-            </select>
+              <input type="text" class="form-control" id="jadwal_kerja" name="jadwal_kerja" value="<?= $jam->jadwal_kerja; ?>">
             </div>
           </div>
           <div class="modal-footer">
