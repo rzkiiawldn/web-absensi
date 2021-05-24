@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2021 at 10:03 AM
+-- Generation Time: May 24, 2021 at 11:21 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -30,8 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `absen` (
   `id_absen` int(11) NOT NULL,
   `tanggal` date NOT NULL,
-  `absen_masuk` time NOT NULL,
+  `absen_masuk` time DEFAULT NULL,
   `absen_pulang` time DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,11 +41,15 @@ CREATE TABLE `absen` (
 -- Dumping data for table `absen`
 --
 
-INSERT INTO `absen` (`id_absen`, `tanggal`, `absen_masuk`, `absen_pulang`, `id_user`) VALUES
-(98, '2021-05-20', '13:25:13', NULL, 13),
-(99, '2021-05-19', '13:34:16', NULL, 13),
-(100, '2021-05-21', '13:34:38', '14:25:45', 13),
-(101, '2021-05-21', '14:59:37', NULL, 14);
+INSERT INTO `absen` (`id_absen`, `tanggal`, `absen_masuk`, `absen_pulang`, `status`, `keterangan`, `id_user`) VALUES
+(98, '2021-05-06', '13:25:13', NULL, NULL, NULL, 13),
+(99, '2021-05-19', '13:34:16', NULL, NULL, NULL, 13),
+(100, '2021-05-21', '13:34:38', '14:25:45', NULL, NULL, 13),
+(101, '2021-05-21', '14:59:37', '15:59:34', NULL, NULL, 14),
+(102, '2021-05-24', '09:28:07', '09:55:22', NULL, NULL, 14),
+(103, '2021-05-23', '12:12:07', '12:12:25', NULL, NULL, 13),
+(104, '2021-05-24', '13:26:17', '13:31:37', NULL, NULL, 15),
+(107, '2021-05-24', NULL, NULL, 'izin', 'sakit', 13);
 
 -- --------------------------------------------------------
 
@@ -54,14 +60,14 @@ INSERT INTO `absen` (`id_absen`, `tanggal`, `absen_masuk`, `absen_pulang`, `id_u
 CREATE TABLE `absen_detail` (
   `id_absen_detail` int(11) NOT NULL,
   `absen_id` int(11) NOT NULL,
-  `keterangan_masuk` varchar(225) NOT NULL,
+  `keterangan_masuk` varchar(225) DEFAULT NULL,
   `keterangan_pulang` varchar(50) DEFAULT NULL,
-  `latitude_masuk` text NOT NULL,
+  `latitude_masuk` text DEFAULT NULL,
   `latitude_pulang` text DEFAULT NULL,
-  `longitude_masuk` text NOT NULL,
+  `longitude_masuk` text DEFAULT NULL,
   `longitude_pulang` text DEFAULT NULL,
-  `keterangan_jadwal` varchar(225) NOT NULL,
-  `foto_masuk` longtext NOT NULL,
+  `keterangan_jadwal` varchar(225) DEFAULT NULL,
+  `foto_masuk` longtext DEFAULT NULL,
   `foto_pulang` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -73,7 +79,11 @@ INSERT INTO `absen_detail` (`id_absen_detail`, `absen_id`, `keterangan_masuk`, `
 (64, 98, 'Masuk', NULL, '-6.2191', NULL, '106.7308', NULL, 'Shift 1', '', NULL),
 (65, 99, 'Masuk', NULL, '-6.2191', NULL, '106.7308', NULL, 'Shift 1', '', NULL),
 (66, 100, 'Masuk', 'Pulang', '-6.2191', '', '106.7308', '', 'Reguler', '', ''),
-(67, 101, 'Masuk', NULL, '-6.2191', NULL, '106.7308', NULL, 'Shift 2', '', NULL);
+(67, 101, 'Masuk', 'Pulang', '-6.2191', '-6.2107262', '106.7308', '106.7116815', 'Shift 2', '', ''),
+(68, 102, 'Masuk', 'Pulang', '-6.2304736', '', '106.7116815', '', 'Reguler', '', ''),
+(69, 103, 'Masuk', 'Pulang', '-6.2304736', '-6.2304736', '106.7116815', '106.7116815', 'Shift 2', '', ''),
+(70, 104, 'Masuk', 'Pulang', '-6.2304736', '-6.2304736', '106.7116815', '106.7116815', 'Reguler', '', ''),
+(71, 107, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -87,7 +97,7 @@ CREATE TABLE `cuti_user` (
   `id_user` int(11) NOT NULL,
   `tgl_cuti` date NOT NULL,
   `tgl_selesai_cuti` date NOT NULL,
-  `jumlah_cuti_user` int(11) NOT NULL,
+  `jumlah_cuti_user` varchar(11) NOT NULL,
   `alasan_cuti` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -96,7 +106,8 @@ CREATE TABLE `cuti_user` (
 --
 
 INSERT INTO `cuti_user` (`id_cuti_user`, `id_cuti`, `id_user`, `tgl_cuti`, `tgl_selesai_cuti`, `jumlah_cuti_user`, `alasan_cuti`) VALUES
-(3, 3, 13, '2021-05-21', '2021-05-31', 0, 'menikah');
+(23, 20, 13, '2021-05-25', '2021-05-27', '2', 'liburan'),
+(24, 20, 13, '2021-05-26', '2021-05-27', '1', 'as');
 
 -- --------------------------------------------------------
 
@@ -115,7 +126,7 @@ CREATE TABLE `data_cuti` (
 --
 
 INSERT INTO `data_cuti` (`id_cuti`, `id_user`, `jumlah_cuti`) VALUES
-(3, 13, 0);
+(20, 13, 9);
 
 -- --------------------------------------------------------
 
@@ -182,9 +193,8 @@ INSERT INTO `jadwal_kerja` (`id_jadwal`, `jadwal`) VALUES
 
 CREATE TABLE `jam_kerja` (
   `id_jam` int(11) NOT NULL,
-  `mulai` time NOT NULL,
-  `selesai` time NOT NULL,
-  `keterangan` varchar(100) NOT NULL,
+  `masuk` time NOT NULL,
+  `pulang` time NOT NULL,
   `jadwal_kerja` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -192,9 +202,9 @@ CREATE TABLE `jam_kerja` (
 -- Dumping data for table `jam_kerja`
 --
 
-INSERT INTO `jam_kerja` (`id_jam`, `mulai`, `selesai`, `keterangan`, `jadwal_kerja`) VALUES
-(1, '08:00:00', '09:00:00', 'Masuk', '1'),
-(2, '04:00:00', '17:00:00', 'Pulang', '1');
+INSERT INTO `jam_kerja` (`id_jam`, `masuk`, `pulang`, `jadwal_kerja`) VALUES
+(1, '09:00:00', '15:00:00', '1'),
+(2, '06:00:00', '13:00:00', '2');
 
 -- --------------------------------------------------------
 
@@ -219,9 +229,9 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`id_karyawan`, `id_user`, `id_jabatan`, `id_divisi`, `nik`, `nama_karyawan`, `alamat_karyawan`, `foto_karyawan`, `tahun_bergabung`) VALUES
-(4, 12, 1, 2, 'EL-0001', 'hrd', 'jakarta', '1', 2015),
-(5, 13, 1, 2, 'EL-0001', 'kelinci', 'tgr', '1', 2021),
-(6, 14, 1, 1, 'EL-0002', 'rizki', 'tangerang', '1', 2021);
+(5, 13, 1, 2, 'EL-0001', 'pegawai', 'tgr', '1', 2021),
+(6, 14, 1, 1, 'EL-0002', 'rizki', 'tangerang', '1', 2021),
+(7, 15, 1, 1, 'EL-0003', 'karyawan', 'ckl', '1', 2021);
 
 -- --------------------------------------------------------
 
@@ -244,7 +254,8 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `id_level`) VALUES
 (1, 'admin', '$2y$10$D57ydtRTqjoJco0IisE9MeLBdTM3k2Rd8aKimg7wCQc1dCyc0thD2', 1),
 (2, 'hrd', '$2y$10$YrmDxh.1dJHpQ89nOYUSOepfikxPdqRLuK9IV8oiGJMlp64inWyBq', 2),
 (13, 'pegawai', '$2y$10$8BYUXK71G31Wv5gN6gL1W.DPBSKwDO7Zk3iksGIXDifi4MPtHo5ZK', 3),
-(14, 'rizki', '$2y$10$pB8Hgg1xQekOPX761m4AB.eK/j9sVr.CifKCKUETCGF0YyiMYQStO', 3);
+(14, 'rizki', '$2y$10$pB8Hgg1xQekOPX761m4AB.eK/j9sVr.CifKCKUETCGF0YyiMYQStO', 3),
+(15, 'karyawan', '$2y$10$HlQX.MV22VwzBfDGkRCPtOdSR/hngK16VLJsiilygOwT3Quqk3FWW', 3);
 
 -- --------------------------------------------------------
 
@@ -292,7 +303,12 @@ INSERT INTO `user_akses_menu` (`id_akses`, `id_level`, `id_menu`, `id_sub`) VALU
 (32, 2, 9, 16),
 (34, 3, 9, 18),
 (35, 3, 9, 17),
-(36, 3, 9, 16);
+(37, 3, 9, 16),
+(38, 2, 9, 19),
+(39, 1, 9, 19),
+(40, 2, 9, 17),
+(41, 2, 2, 15),
+(42, 2, 2, 14);
 
 -- --------------------------------------------------------
 
@@ -371,9 +387,9 @@ INSERT INTO `user_sub_menu` (`id_sub`, `id_menu`, `submenu`, `url`, `icon`, `is_
 (11, 2, 'Edit Profile', 'user/edit_profile', 'fas fa-fw fa-user', 1, 3),
 (14, 2, 'Divisi', 'user/divisi', 'fas fa-fw fa-users', 1, 5),
 (15, 2, 'Jabatan', 'user/jabatan', 'fas fa-fw fa-user', 1, 6),
-(16, 9, 'Data Cuti', 'cuti', 'fas fa-fw fa-user', 1, 3),
+(16, 9, 'Detail Cuti', 'cuti/detail_cuti', 'fas fa-fw fa-user', 1, 2),
 (17, 9, 'Pengajuan Cuti', 'cuti/pengajuan', 'fas fa-fw fa-user', 1, 1),
-(18, 9, 'Detail Cuti', 'cuti/detail_cuti', 'fas fa-fw fa-user', 1, 2);
+(19, 9, 'Data Cuti', 'cuti', 'fas fa-fw fa-user', 1, 3);
 
 --
 -- Indexes for dumped tables
@@ -471,25 +487,25 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `absen_detail`
 --
 ALTER TABLE `absen_detail`
-  MODIFY `id_absen_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_absen_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `cuti_user`
 --
 ALTER TABLE `cuti_user`
-  MODIFY `id_cuti_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cuti_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `data_cuti`
 --
 ALTER TABLE `data_cuti`
-  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `divisi`
@@ -519,19 +535,19 @@ ALTER TABLE `jam_kerja`
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_akses_menu`
 --
 ALTER TABLE `user_akses_menu`
-  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `user_level`
@@ -549,7 +565,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

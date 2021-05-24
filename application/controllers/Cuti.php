@@ -55,18 +55,38 @@ class Cuti extends CI_Controller
 
 	public function ajukan()
 	{
-		$data = [
-			'id_user'		=> $this->input->post('id_user'),
-			'jumlah_cuti'	=> 0
-		];
-		$cuti = $this->db->insert('data_cuti', $data);
-		$id_cuti = $this->db->insert_id();
+		$tgl_cuti = strtotime($this->input->post('tgl_cuti'));
+		$tgl_selesai_cuti = strtotime($this->input->post('tgl_selesai_cuti'));
+		$jumlah_hari = $tgl_selesai_cuti-$tgl_cuti;
+		$jumlah_cuti_user = $jumlah_hari / 60 / 60 / 24;
+
+		$user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
+		$id_user = $user->id_user;
+		$cek_user = $this->db->get_where('data_cuti', ['id_user' => $id_user])->row();
+
+		if(empty($cek_user)) {
+			$data = [
+				'id_user'		=> $this->input->post('id_user'),
+				'jumlah_cuti'	=> 12 - $jumlah_cuti_user
+			];
+			$cuti = $this->db->insert('data_cuti', $data);
+			$id_cuti = $this->db->insert_id();
+		} else {
+			$jumlah_cuti = $cek_user->jumlah_cuti - $jumlah_cuti_user;
+			$this->db->set('jumlah_cuti', $jumlah_cuti);
+			$this->db->where('id_user', $id_user);
+			$this->db->update('data_cuti');
+
+			$data_cuti = $this->db->get_where('data_cuti',['id_user' => $id_user])->row();
+			$id_cuti = $data_cuti->id_cuti;
+		}
+		
 		$data_cuti_user = [
 			'id_cuti'               => $id_cuti,
 			'id_user'               => $this->input->post('id_user'),
 			'tgl_cuti'              => $this->input->post('tgl_cuti'),
 			'tgl_selesai_cuti'		=> $this->input->post('tgl_selesai_cuti'),
-			'jumlah_cuti_user'		=> 0,
+			'jumlah_cuti_user'		=> $jumlah_cuti_user,
 			'alasan_cuti'			=> $this->input->post('alasan_cuti')
 		];
 		$this->db->insert('cuti_user', $data_cuti_user);

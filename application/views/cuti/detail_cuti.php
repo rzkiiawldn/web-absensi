@@ -6,6 +6,7 @@
 					<h4 class="card-title"><?= $judul; ?></h4>
 				</div>
 				<div class="card-body">
+				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -28,6 +29,7 @@
 							<?php } ?>
 						</tbody>
 					</table>
+				</div>
 				</div>
 			</div>
 		</div>

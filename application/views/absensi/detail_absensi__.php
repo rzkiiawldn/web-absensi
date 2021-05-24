@@ -42,6 +42,25 @@
         <div class="col">
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8">
+                            <table>
+                                <tr>
+                                    <th width="20%">Nama</th>
+                                    <th width="10%">:</th>
+                                    <th width="20%"><?= $data_user->username; ?></th>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>:</th>
+                                    <th><?= $data_user->level; ?></th>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
@@ -63,20 +82,22 @@
                                 <th width="5%">Aksi</th>
                             </thead>
                             <tbody>
-                            <?php if ($absen) : ?>
-                            <?php $no=1; foreach($absen_detail as $ad) : ?>
-                                <tr>
-                                    <td><?= $no++ ?></td>
-                                    <td><?= $ad->tanggal ?></td>
-                                    <td><?= $ad->absen_masuk == null ? 'Izin' : $ad->absen_masuk; ?></td>
-                                    <td><?= $ad->absen_pulang ?></td>
-                                    <td><?= $ad->keterangan_jadwal == null ? 'Izin' : $ad->keterangan_jadwal; ?></td>
-                                    <td>
-                                    <a href="<?= base_url('absensi/detail/'. $ad->id_absen) ?>" class="btn btn-sm btn-info">Detail</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            <?php else : ?>
+                                <?php if ($absen) : ?>
+                                    <?php foreach ($hari as $i => $h) : ?>
+                                        <?php
+                                        $absen_harian = array_search($h['tgl'], array_column($absen, 'tgl')) !== false ? $absen[array_search($h['tgl'], array_column($absen, 'tgl'))] : '';
+                                        ?>
+                                        <tr <?= ($absen_harian == '') ? 'class="bg-danger text-white"' : '' ?>>
+                                            <td><?= ($i + 1) ?></td>
+                                            <td><?= $h['hari'] . ', ' . $h['tgl'] ?></td>
+                                            <td><?= check_jam(@$absen_harian['jam_masuk'], 'masuk') ?></td>
+                                            <td><?= check_jam(@$absen_harian['jam_pulang'], 'pulang') ?></td>
+                                            <td><?= @$absen_harian['keterangan_jadwal']; ?></td>
+                                            <!-- <td><a href="<?= base_url('absensi/detail/'. @$absen_harian['id_absen']) ?>" class="badge badge-info">detail</a></td> -->
+                                            <td><?= @$absen_harian['id_absen'] != null ? "<a href='". base_url('absensi/detail/'. @$absen_harian['id_absen'])."' class='badge badge-info'>detail</a>" : ''; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
                                     <tr>
                                         <td class="bg-light text-center" colspan="8">Tidak ada data absen</td>
                                     </tr>

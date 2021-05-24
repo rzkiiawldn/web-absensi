@@ -23,6 +23,7 @@
 									<tr>
 										<td>Absen Masuk</td>
 										<td>Absen Pulang</td>
+                    <td>Izin</td>
 									</tr>
 									<tr>
 											
@@ -30,14 +31,19 @@
                         <td>
                           <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#masuk">Absen Masuk</a>
                         </td>
-                        <td><div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-success disabled">Absen Pulang</a></div></td>
+                        <td>
+                          <div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-success disabled">Absen Pulang</a></div>
+                        </td>
+                        <td><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#izin">Izin</a></td>
                       <?php } elseif($today['absen_masuk'] != null AND $today['absen_pulang'] == null) { ?>
-                        <td><div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-primary disabled">Absen Masuk</a></div></td>
+                        <td>
+                          <div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-primary disabled">Absen Masuk</a></div>
+                          </td>
                         <td>
                           <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#pulang">Absen Pulang</a>
                         </td>
                       <?php } else { ?>
-                        <td colspan="2" class="bg-danger text-white">Hari ini kamu sudah absen</td>
+                        <td colspan="3" class="bg-danger text-white">Hari ini kamu sudah absen</td>
                       <?php } ?>
 									</tr>
 								</table>
@@ -198,6 +204,29 @@
     </div>
   </div>
 </div> -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="izin" tabindex="-1" aria-labelledby="izinLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="izinLabel">izin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <div class="card-body">
+        				<form method="post" action="<?=site_url('absensi/izin') ?>">
+                  <textarea name="keterangan" id="keterangan" required rows="5"  class="form-control"></textarea><br>
+                  <button class="btn btn-block btn-primary" type="submit">Submit</button>
+                </form>
+              </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 
 

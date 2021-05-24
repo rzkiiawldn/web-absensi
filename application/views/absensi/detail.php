@@ -6,6 +6,7 @@
 					<h4 class="card-title"><?= $judul; ?></h4>
 				</div>
 				<div class="card-body">
+                <div class="table-responsive">
 					<table class="table">
 							<tr>
                                 <th width="20%">Nama Karyawan</th>
@@ -45,6 +46,7 @@
                                 <td>: <img src="<?= $absen_detail->foto_pulang ?>" alt="" width="200px"></td>
                             </tr>
 					</table>
+                    </div>
 				</div>
 			</div>
 		</div>

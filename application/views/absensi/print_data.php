@@ -21,6 +21,7 @@
             <th width="20%">tgl</th>
             <th width="35%">Jam Masuk</th>
             <th width="35%">Jam Keluar</th>
+            <th>Jadwal Kerja</th>
         </tr>
 
         <?php if ($absen) : ?>
@@ -28,11 +29,12 @@
                 <?php
                 $absen_harian = array_search($h['tgl'], array_column($absen, 'tgl')) !== false ? $absen[array_search($h['tgl'], array_column($absen, 'tgl'))] : '';
                 ?>
-                <tr <?= (in_array($h['hari'], ['Sabtu', 'Minggu'])) ? 'style="background-color: red"' : '' ?> <?= ($absen_harian == '') ? 'style="background-color: white"' : '' ?>>
-                    <td width="10%" align="center" style="background-color:<?= is_weekend($h['tgl']) ? 'red' : 'white'; ?>"><?= ($i + 1) ?></td>
-                    <td width="20%" align="center" style="background-color:<?= is_weekend($h['tgl']) ? 'red' : 'white'; ?>"><?= $h['hari'] . ', ' . $h['tgl'] ?></td>
-                    <td width="35%" align="center" style="background-color:<?= is_weekend($h['tgl']) ? 'red' : 'white'; ?>"><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_masuk'], 'masuk') ?></td>
-                    <td width="35%" align="center" style="background-color:<?= is_weekend($h['tgl']) ? 'red' : 'white'; ?>"><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_pulang'], 'pulang') ?></td>
+                <tr <?= ($absen_harian == '') ? 'style="background-color: white"' : '' ?>>
+                    <td width="10%" align="center"><?= ($i + 1) ?></td>
+                    <td width="20%" align="center"><?= $h['hari'] . ', ' . $h['tgl'] ?></td>
+                    <td width="35%" align="center"><?= check_jam(@$absen_harian['jam_masuk'], 'masuk') ?></td>
+                    <td width="35%" align="center"><?= check_jam(@$absen_harian['jam_pulang'], 'pulang') ?></td>
+                    <td><?= @$absen_harian['keterangan_jadwal']; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else : ?>

@@ -10,6 +10,7 @@ class Absensi_model extends CI_Model
         $this->db->where("DATE_FORMAT(tanggal, '%m') = ", $bulan);
         $this->db->where("DATE_FORMAT(tanggal, '%Y') = ", $tahun);
         $this->db->group_by("tanggal");
+        $this->db->order_by('tanggal', 'desc');
         $result = $this->db->get('absen a');
         return $result->result_array();
     }

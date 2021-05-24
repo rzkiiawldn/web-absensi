@@ -69,7 +69,7 @@ class Absensi extends CI_Controller
             'judul'     => 'Detail Absensi',
             'user'      => $user,
             'data_user' => $this->user_model->find($id_user),
-            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$user->id_user'")->result(),
+            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$user->id_user' ORDER BY absen.id_absen DESC")->result(),
             'absen'     => $this->absensi_model->get_absen($id_user, $bulan, $tahun),
             'jam_kerja' => (array) $this->absensi_model->get_jam(),
             'all_bulan' => bulan(),
@@ -108,6 +108,42 @@ class Absensi extends CI_Controller
         $this->load->view('template/_footer');
     }
 
+    public function izin()
+    {
+        $user   = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
+        $user->id_user;
+
+        $keterangan = $this->input->post('keterangan');
+
+        $data = [
+            'tanggal'           => date('Y-m-d'),
+            'absen_masuk'       => null,
+            'absen_pulang'      => null,
+            'status'            => 'izin',
+            'keterangan'        => $keterangan,
+            'id_user'           => $user->id_user
+        ];
+        $insert = $this->db->insert('absen', $data);
+
+        $absen_id = $this->db->insert_id();
+            $data_detail = [
+                'absen_id'                        => $absen_id,
+                'keterangan_masuk'                => null,
+                'keterangan_pulang'               => null,
+                'latitude_masuk'                  => null,
+                'latitude_pulang'                 => null,
+                'longitude_masuk'                 => null,
+                'longitude_pulang'                => null,
+                'keterangan_jadwal'               => null,
+                'foto_masuk'                      => null,
+                'foto_pulang'                     => null,
+            ];
+            $this->db->insert('absen_detail', $data_detail);
+
+
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Anda berhasil absen</div>');
+        redirect('absensi');
+    }
     public function status()
     {
         $user   = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
@@ -122,6 +158,8 @@ class Absensi extends CI_Controller
                 'tanggal'           => date('Y-m-d'),
                 'absen_masuk'       => date('H:i:s'),
                 'absen_pulang'      => null,
+                'status'            => null,
+                'keterangan'        => null,
                 'id_user'           => $user->id_user
             ];
             $insert = $this->db->insert('absen', $data);
@@ -203,7 +241,7 @@ class Absensi extends CI_Controller
     {
         $this->load->library('dompdf_gen');
 
-        $user           = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
+        $user      = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
 
         $bulan      = $this->input->get('bulan') ? $this->input->get('bulan') : date('m');
         $tahun      = $this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
@@ -212,6 +250,7 @@ class Absensi extends CI_Controller
             'judul'     => 'Detail Absensi',
             'user'      => $user,
             'data_user' => $this->user_model->find($id_user),
+            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$user->id_user'")->result(),
             'absen'     => $this->absensi_model->get_absen($id_user, $bulan, $tahun),
             'jam_kerja' => (array) $this->absensi_model->get_jam(),
             'all_bulan' => bulan(),
@@ -221,8 +260,7 @@ class Absensi extends CI_Controller
 
         ];
 
-
-        $filename = 'Absensi ' . $data['data_user']->nama . ' - ' . bulan($data['bulan']) . ' ' . $data['tahun'] . '.pdf';
+        $filename = 'Absensi ' . $user->username . ' - ' . bulan($data['bulan']) . ' ' . $data['tahun'] . '.pdf';
 
         $this->load->view('absensi/print_data', $data);
 
