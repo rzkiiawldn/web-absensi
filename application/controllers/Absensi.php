@@ -113,13 +113,14 @@ class Absensi extends CI_Controller
         $user   = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
         $user->id_user;
 
+        $status     = $this->input->post('status');
         $keterangan = $this->input->post('keterangan');
 
         $data = [
             'tanggal'           => date('Y-m-d'),
             'absen_masuk'       => null,
             'absen_pulang'      => null,
-            'status'            => 'izin',
+            'status'            => $status,
             'keterangan'        => $keterangan,
             'id_user'           => $user->id_user
         ];

@@ -68,9 +68,9 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $ad->tanggal ?></td>
-                                    <td><?= $ad->absen_masuk == null ? 'Izin' : $ad->absen_masuk; ?></td>
-                                    <td><?= $ad->absen_pulang ?></td>
-                                    <td><?= $ad->keterangan_jadwal == null ? 'Izin' : $ad->keterangan_jadwal; ?></td>
+                                    <td><?= $ad->absen_masuk == null ? 'tidak hadir' : $ad->absen_masuk; ?></td>
+                                    <td><?= $ad->absen_pulang == null ? 'tidak hadir' : $ad->absen_pulang; ?></td>
+                                    <td><?= $ad->keterangan_jadwal == null ? 'tidak hadir' : $ad->keterangan_jadwal; ?></td>
                                     <td>
                                     <a href="<?= base_url('absensi/detail/'. $ad->id_absen) ?>" class="btn btn-sm btn-info">Detail</a>
                                     </td>

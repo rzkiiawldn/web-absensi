@@ -23,7 +23,7 @@
 									<tr>
 										<td>Absen Masuk</td>
 										<td>Absen Pulang</td>
-                    <td>Izin</td>
+                    <td>Tidak Hadir</td>
 									</tr>
 									<tr>
 											
@@ -34,7 +34,7 @@
                         <td>
                           <div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-success disabled">Absen Pulang</a></div>
                         </td>
-                        <td><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#izin">Izin</a></td>
+                        <td><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#izin">Tidak Hadir</a></td>
                       <?php } elseif($today['absen_masuk'] != null AND $today['absen_pulang'] == null) { ?>
                         <td>
                           <div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-primary disabled">Absen Masuk</a></div>
@@ -219,6 +219,15 @@
         <div class="modal-body">
           <div class="card-body">
         				<form method="post" action="<?=site_url('absensi/izin') ?>">
+                <label for="">Keterangan</label>
+                <select name="status" class="form-control" required="">
+                    <option value="" disabled selected>---</option>
+                    <option value="Izin">Izin</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Tanpa Keterangan">Tanpa Keterangan</option>
+                </select><br>
+
+                <label for="keterangan">Alasan</label>
                   <textarea name="keterangan" id="keterangan" required rows="5"  class="form-control"></textarea><br>
                   <button class="btn btn-block btn-primary" type="submit">Submit</button>
                 </form>

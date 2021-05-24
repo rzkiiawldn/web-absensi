@@ -5,6 +5,7 @@
 				<div class="card-header">
 					<h4 class="card-title"><?= $judul; ?></h4>
 				</div>
+                
 				<div class="card-body">
                 <div class="table-responsive">
 					<table class="table">
@@ -12,6 +13,12 @@
                                 <th width="20%">Nama Karyawan</th>
                                 <td>: <?= $absen_detail->nama_karyawan ?></td>
                             </tr>
+                            <?php if($absen_detail->keterangan_masuk == null){ ?>
+                            <tr>
+                                <th width="20%">Alasan Izin</th>
+                                <td>: <?= $absen_detail->keterangan ?></td>
+                            </tr>
+                            <?php } else { ?>
                             <tr>
                                 <th width="20%">Jadwal Kerja</th>
                                 <td>: <?= $absen_detail->keterangan_jadwal ?></td>
@@ -44,7 +51,8 @@
                             <tr>
                                 <th width="20%">Foto Pulang</th>
                                 <td>: <img src="<?= $absen_detail->foto_pulang ?>" alt="" width="200px"></td>
-                            </tr>
+                            </tr>  
+                        <?php } ?>
 					</table>
                     </div>
 				</div>
