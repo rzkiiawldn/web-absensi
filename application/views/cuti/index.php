@@ -8,24 +8,22 @@
 				<div class="card-body">
 					<table class="table table-striped">
 						<thead>
-							<tr>
-								<th>#</th>
-                                <th>Karyawan</th>
-								<th>Tanggal Mulai Cuti</th>
-								<th>Tanggal Selesai Cuti</th>
-								<th>Alasan Cuti</th>
-                            </tr>
+							<th>No</th>
+							<th>Karyawan</th>
+							<th>Aksi</th>
 						</thead>
 						<tbody>
-							<?php $no=1; foreach($cuti as $c) { ?>
-							<tr>
-                                <td><?= $no++ ?></td>
-								<td><?= $c->nama_karyawan ?></td>
-								<td><?= $c->tgl_cuti ?></td>
-								<td><?= $c->tgl_selesai_cuti ?></td>
-								<td><?= $c->alasan_cuti ?></td>
-                            </tr>
-							<?php } ?>
+							<?php
+							$no = 1;
+							foreach ($data_user as $u) : ?>
+								<tr>
+									<td><?= $no++ ?></td>
+									<td><?= $u->nama_karyawan ?></td>
+									<td>
+										<a href="<?= base_url('cuti/detail_cuti/' . $u->id_user) ?>" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Detail</a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>

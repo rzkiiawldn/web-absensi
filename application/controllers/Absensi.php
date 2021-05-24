@@ -101,7 +101,7 @@ class Absensi extends CI_Controller
         $data = [
             'judul'     => 'Data Absensi',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'data_user' => $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level WHERE user_level.level = 'Pegawai' ")->result()
+            'data_user' => $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user  WHERE user_level.level = 'Pegawai' ")->result()
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('absensi/data_absensi');

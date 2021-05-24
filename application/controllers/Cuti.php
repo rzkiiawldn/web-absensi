@@ -14,19 +14,27 @@ class Cuti extends CI_Controller
 		$data = [
 			'judul'		=> 'Data Cuti',
 			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-			'cuti'		=> $this->db->query('SELECT * FROM cuti_user JOIN data_cuti ON cuti_user.id_cuti = data_cuti.id_cuti JOIN user ON user.id_user = cuti_user.id_user JOIN karyawan ON karyawan.id_user = user.id_user')->result()
-		];
+			'data_user' => $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user WHERE user_level.level = 'Pegawai' ")->result()
+        ];
 		$this->load->view('template/_header', $data);
 		$this->load->view('cuti/index');
 		$this->load->view('template/_footer');
 	}
 
-	public function detail_cuti()
+	public function detail_cuti($id_user = null)
 	{
+		$user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
+		
+		if ($id_user != null) {
+            $id_user    = @$this->uri->segment(3);
+        } else {
+            $id_user    = $user->id_user;
+        }
+
 		$data = [
 			'judul'		=> 'Detail Cuti',
-			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-			'cuti'		=> $this->db->get('data_cuti')->result()
+			'user'      => $user,
+			'cuti'		=> $this->db->query("SELECT * FROM cuti_user JOIN data_cuti ON cuti_user.id_cuti = data_cuti.id_cuti JOIN user ON user.id_user = cuti_user.id_user JOIN karyawan ON karyawan.id_user = user.id_user WHERE cuti_user.id_user = '$id_user' ORDER BY cuti_user.id_cuti_user DESC ")->result()
 		];
 		$this->load->view('template/_header', $data);
 		$this->load->view('cuti/detail_cuti');
@@ -63,6 +71,6 @@ class Cuti extends CI_Controller
 		];
 		$this->db->insert('cuti_user', $data_cuti_user);
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Pengajuan berhasil</div>');
-        redirect('cuti');
+        redirect('cuti/detail_cuti');
 	}
 }
