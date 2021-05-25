@@ -69,7 +69,7 @@ class Absensi extends CI_Controller
             'judul'     => 'Detail Absensi',
             'user'      => $user,
             'data_user' => $this->user_model->find($id_user),
-            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$user->id_user' ORDER BY absen.id_absen DESC")->result(),
+            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$user->id_user' AND month(tanggal) = '$bulan' AND year(tanggal) = '$tahun' ORDER BY absen.id_absen DESC")->result(),
             'absen'     => $this->absensi_model->get_absen($id_user, $bulan, $tahun),
             'jam_kerja' => (array) $this->absensi_model->get_jam(),
             'all_bulan' => bulan(),
