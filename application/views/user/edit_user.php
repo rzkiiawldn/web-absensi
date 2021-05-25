@@ -22,7 +22,7 @@
 				</div> -->
 				<div class="form-group">
 					<label for="username">username</label>
-					<input type="text" class="form-control" id="username" name="username" value="<?= $data_user->username; ?>">
+					<input type="text" class="form-control" id="username" readonly=""> value="<?= $data_user->username; ?>">
 				</div>
 				<?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
 				<div class="form-group">

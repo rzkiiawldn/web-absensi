@@ -161,11 +161,9 @@ class User extends CI_Controller
 			$this->load->view('template/_footer');
 		} else {
 			$id_user 	= htmlspecialchars($this->input->post('id_user', TRUE));
-			$username 		= htmlspecialchars($this->input->post('username', TRUE));
 			$password 	= $this->input->post('password1');
 			$id_level 	= htmlspecialchars($this->input->post('id_level', TRUE));
 
-			$this->db->set('username', $username);
 			$this->db->set('id_level', $id_level);
 			if (!empty($password)) {
 				$this->db->set('password', password_hash($password, PASSWORD_DEFAULT));
