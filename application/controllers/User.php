@@ -77,8 +77,27 @@ class User extends CI_Controller
 			$id_divisi 			= $this->input->post('id_divisi');
 			$nik 				= $this->input->post('nik');
 			$nama_karyawan 		= $this->input->post('nama_karyawan');
-			$alamat_karyawan	= $this->input->post('alamat_karyawan');
-			$tahun_bergabung 	= $this->input->post('tahun_bergabung');
+			$kantor 		= $this->input->post('kantor');
+
+			$tempat_lahir	= $this->input->post('tempat_lahir');
+			$tanggal_lahir	= $this->input->post('tanggal_lahir');
+			$alamat_sekarang	= $this->input->post('alamat_sekarang');
+			$kota_sekarang	= $this->input->post('kota_sekarang');
+			$kode_pos_sekarang	= $this->input->post('kode_pos_sekarang');
+			$alamat_tetap	= $this->input->post('alamat_tetap');
+			$kota_tetap	= $this->input->post('kota_tetap');
+			$kode_pos_tetap	= $this->input->post('kode_pos_tetap');
+			$ktp_sim	= $this->input->post('ktp_sim');
+			$npwp	= $this->input->post('npwp');
+			$agama	= $this->input->post('agama');
+			$ibu_kandung	= $this->input->post('ibu_kandung');
+			$golongan_darah	= $this->input->post('golongan_darah');
+			$no_telp	= $this->input->post('no_telp');
+			$status	= $this->input->post('status');
+			$nama_pasangan	= $this->input->post('nama_pasangan');
+			$bca_cabang	= $this->input->post('bca_cabang');
+			$no_rek	= $this->input->post('no_rek');
+			$masuk_kerja 		= $this->input->post('masuk_kerja');
 
 			$data = [
 				'username'      => htmlspecialchars($this->input->post('username', TRUE)),
@@ -94,10 +113,28 @@ class User extends CI_Controller
                 'id_jabatan	'   		=> $id_jabatan,
                 'id_divisi'      		=> $id_divisi,
                 'nik'      				=> $nik,
+                'kantor'      			=> $kantor,
                 'nama_karyawan'      	=> $nama_karyawan,
-                'alamat_karyawan'      	=> $alamat_karyawan,
-                'foto_karyawan'      	=> 1,
-                'tahun_bergabung'      	=> $tahun_bergabung,
+                'tempat_lahir'      	=> $tempat_lahir,
+                'tanggal_lahir'      	=> $tanggal_lahir,
+                'alamat_sekarang'      	=> $alamat_sekarang,
+                'kota_sekarang'      	=> $kota_sekarang,
+                'kode_pos_sekarang'     => $kode_pos_sekarang,
+                'alamat_tetap'      	=> $alamat_tetap,
+                'kota_tetap'      		=> $kota_tetap,
+                'kode_pos_tetap'     	=> $kode_pos_tetap,
+                'ktp_sim'     			=> $ktp_sim,
+                'npwp'     				=> $npwp,
+                'agama'     			=> $agama,
+                'ibu_kandung'   		=> $ibu_kandung,
+                'golongan_darah'   		=> $golongan_darah,
+                'no_telp'   			=> $no_telp,
+                'masuk_kerja'   		=> $masuk_kerja,
+                'status'   				=> $status,
+                'nama_pasangan'   		=> $nama_pasangan,
+                'bca_cabang'   			=> $bca_cabang,
+                'no_rek'   				=> $no_rek,
+                'foto_karyawan'      	=> 1
             ];
             $this->db->insert('karyawan', $data);
 			// pesan dengan flash_data
