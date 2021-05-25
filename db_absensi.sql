@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2021 at 11:21 AM
+-- Generation Time: May 25, 2021 at 06:17 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -49,7 +49,7 @@ INSERT INTO `absen` (`id_absen`, `tanggal`, `absen_masuk`, `absen_pulang`, `stat
 (102, '2021-05-24', '09:28:07', '09:55:22', NULL, NULL, 14),
 (103, '2021-05-23', '12:12:07', '12:12:25', NULL, NULL, 13),
 (104, '2021-05-24', '13:26:17', '13:31:37', NULL, NULL, 15),
-(107, '2021-05-24', NULL, NULL, 'izin', 'sakit', 13);
+(111, '2021-05-24', NULL, NULL, 'Izin', 'acara keluarga', 13);
 
 -- --------------------------------------------------------
 
@@ -83,7 +83,8 @@ INSERT INTO `absen_detail` (`id_absen_detail`, `absen_id`, `keterangan_masuk`, `
 (68, 102, 'Masuk', 'Pulang', '-6.2304736', '', '106.7116815', '', 'Reguler', '', ''),
 (69, 103, 'Masuk', 'Pulang', '-6.2304736', '-6.2304736', '106.7116815', '106.7116815', 'Shift 2', '', ''),
 (70, 104, 'Masuk', 'Pulang', '-6.2304736', '-6.2304736', '106.7116815', '106.7116815', 'Reguler', '', ''),
-(71, 107, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(74, 110, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(75, 111, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -282,15 +283,12 @@ INSERT INTO `user_akses_menu` (`id_akses`, `id_level`, `id_menu`, `id_sub`) VALU
 (5, 1, 1, 4),
 (6, 1, 1, 5),
 (9, 2, 2, 2),
-(10, 2, 2, 11),
-(11, 1, 2, 11),
 (12, 3, 2, 2),
 (15, 2, 4, 7),
 (16, 2, 4, 9),
 (17, 3, 4, 7),
 (18, 3, 4, 8),
 (19, 3, 4, 10),
-(20, 3, 2, 11),
 (21, 1, 4, 0),
 (22, 1, 4, 7),
 (23, 1, 4, 9),
@@ -487,13 +485,13 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `absen_detail`
 --
 ALTER TABLE `absen_detail`
-  MODIFY `id_absen_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_absen_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `cuti_user`
