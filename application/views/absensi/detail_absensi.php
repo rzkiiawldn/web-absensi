@@ -68,8 +68,10 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $ad->tanggal ?></td>
-                                    <td><?= $ad->absen_masuk == null ? 'tidak hadir' : $ad->absen_masuk; ?></td>
-                                    <td><?= $ad->absen_pulang == null ? 'tidak hadir' : $ad->absen_pulang; ?></td>
+                                    <!-- <td><?= $ad->absen_masuk == null ? 'tidak hadir' : $ad->absen_masuk; ?></td> -->
+                                    <td><?= check_jam($ad->absen_masuk, $ad->keterangan_jadwal) ?></td>
+                                    <!-- <td><?= check_jam($ad->absen_pulang, $ad->keterangan_jadwal) ?></td> -->
+                                    <td><span class='badge badge-success'><?= $ad->absen_pulang == null ? 'tidak hadir' : $ad->absen_pulang; ?></span></td>
                                     <td><?= $ad->keterangan_jadwal == null ? 'tidak hadir' : $ad->keterangan_jadwal; ?></td>
                                     <td>
                                     <a href="<?= base_url('absensi/detail/'. $ad->id_absen) ?>" class="btn btn-sm btn-info">Detail</a>

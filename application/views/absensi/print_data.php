@@ -15,7 +15,7 @@
     </table>
     <br>
     <h4 class="card-title mb-4">Absen Bulan : <?= bulan($bulan) . ' ' . $tahun ?></h4><br> <br>
-    <table width="100%" align="center">
+    <table width="100%" align="center" border="1">
         <tr>
             <th width="10%">No</th>
             <th width="20%">tgl</th>
@@ -32,8 +32,8 @@
                 <tr <?= ($absen_harian == '') ? 'style="background-color: white"' : '' ?>>
                     <td width="10%" align="center"><?= ($i + 1) ?></td>
                     <td width="20%" align="center"><?= $h['hari'] . ', ' . $h['tgl'] ?></td>
-                    <td width="35%" align="center"><?= check_jam(@$absen_harian['jam_masuk'], 'masuk') ?></td>
-                    <td width="35%" align="center"><?= check_jam(@$absen_harian['jam_pulang'], 'pulang') ?></td>
+                    <td width="35%" align="center"><?= check_jam(@$absen_harian['jam_masuk'], @$absen_harian['keterangan_jadwal']) ?></td>
+                    <td width="35%" align="center"><?= check_jam(@$absen_harian['jam_pulang'], @$absen_harian['keterangan_jadwal']) ?></td>
                     <td><?= @$absen_harian['keterangan_jadwal']; ?></td>
                 </tr>
             <?php endforeach; ?>

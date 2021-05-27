@@ -44,8 +44,8 @@ class Absensi extends CI_Controller
             'today'     => $today,
             'act'       => $act,
             'absen'     => $this->absensi_model->absensi_harian($user->id_user)->num_rows(),
-            'jadwal'    => $this->db->get('jadwal_kerja')->result(),
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
+            'jam_kerja' => $this->db->get('jam_kerja')->result()
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('absensi/absen');
@@ -69,7 +69,7 @@ class Absensi extends CI_Controller
             'judul'     => 'Detail Absensi',
             'user'      => $user,
             'data_user' => $this->user_model->find($id_user),
-            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$user->id_user' AND month(tanggal) = '$bulan' AND year(tanggal) = '$tahun' ORDER BY absen.id_absen DESC")->result(),
+            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$id_user' AND month(tanggal) = '$bulan' AND year(tanggal) = '$tahun' ORDER BY absen.id_absen DESC")->result(),
             'absen'     => $this->absensi_model->get_absen($id_user, $bulan, $tahun),
             'jam_kerja' => (array) $this->absensi_model->get_jam(),
             'all_bulan' => bulan(),
@@ -202,7 +202,7 @@ class Absensi extends CI_Controller
         $data = [
             'judul'     => 'Jam Kerja',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'jam_kerja' => $this->db->query('SELECT * FROM jam_kerja JOIN jadwal_kerja ON jam_kerja.jadwal_kerja = jadwal_kerja.id_jadwal')->result(),
+            'jam_kerja' => $this->db->get('jam_kerja')->result(),
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('absensi/jam_kerja');
@@ -210,11 +210,14 @@ class Absensi extends CI_Controller
     }
     public function tambah_jam_kerja()
     {
+        $jam_masuk = $this->input->post('masuk');
+        $dispensasi = date('H:i:s', strtotime('+30 minutes', strtotime($jam_masuk)));
         $data = [
             'id_jam'        => $this->input->post('id_jam'),
             'masuk'         => $this->input->post('masuk'),
-            'pulang'       => $this->input->post('pulang'),
-            'jadwal_kerja'    => $this->input->post('jadwal_kerja'),
+            'pulang'        => $this->input->post('pulang'),
+            'dispensasi'    => $dispensasi,
+            'jadwal_kerja'  => $this->input->post('jadwal_kerja'),
         ];
 
         $this->db->insert('jam_kerja', $data);
@@ -237,6 +240,14 @@ class Absensi extends CI_Controller
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Jam kerja berhasil di ubah</div>');
         redirect('absensi/jam_kerja');
     }
+
+    public function hapus_jam_kerja($id_jam)
+	{
+		$this->db->where('id_jam', $id_jam);
+		$this->db->delete('jam_kerja');
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data User Berhasil Dihapus</div>');
+		redirect('absensi/jam_kerja');
+	}
 
     public function cetak_data_absensi($id_user)
     {

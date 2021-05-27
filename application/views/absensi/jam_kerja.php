@@ -44,11 +44,12 @@
                 <td><?= $no++; ?></td>
                 <td><?= $jam->masuk; ?></td>
                 <td><?= $jam->pulang; ?></td>
-                <td><?= $jam->jadwal; ?></td>
+                <td><?= $jam->jadwal_kerja; ?></td>
                 <?php if ($user->id_level == 3) {
                 } else { ?>
                   <td>
                     <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit<?= $jam->id_jam; ?>">edit</a>
+                    <a href="<?= base_url('absensi/hapus_jam_kerja/'.$jam->id_jam) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin hapus ?')">hapus</a>
                   </td>
                 <?php } ?>
               </tr>
@@ -83,7 +84,7 @@
           </div>
           <div class="form-group">
             <label for="jadwal_kerja">jadwal_kerja</label>
-            <input type="text" class="form-control" id="jadwal_kerja" name="jadwal_kerja">
+            <input type="text" class="form-control" id="jadwal_kerja" name="jadwal_kerja" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -121,7 +122,7 @@
             </div>
             <div class="form-group">
               <label for="jadwal_kerja">jadwal_kerja</label>
-              <input type="text" class="form-control" id="jadwal_kerja" name="jadwal_kerja" value="<?= $jam->jadwal_kerja; ?>">
+              <input type="text" class="form-control" id="jadwal_kerja" name="jadwal_kerja" value="<?= $jam->jadwal_kerja; ?>" required>
             </div>
           </div>
           <div class="modal-footer">

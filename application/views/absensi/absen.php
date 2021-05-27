@@ -42,6 +42,9 @@
                         <td>
                           <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#pulang">Absen Pulang</a>
                         </td>
+                        <td>
+                          <div style="cursor: not-allowed"><a href="#" class="btn btn-sm btn-danger disabled">Tidak Hadir</a></div>
+                          </td>
                       <?php } else { ?>
                         <td colspan="3" class="bg-danger text-white">Hari ini kamu sudah absen</td>
                       <?php } ?>
@@ -95,8 +98,8 @@
         				<form method="post" action="<?=site_url('absensi/status') ?>">
                   <select name="keterangan_jadwal" class="form-control" required="">
                     <option value="" disabled selected>-- Pilih Jadwal --</option>
-                <?php foreach ($jadwal as $j) : ?>
-                      <option value="<?= $j->jadwal; ?>"><?= $j->jadwal; ?></option>
+                <?php foreach ($jam_kerja as $j) : ?>
+                      <option value="<?= $j->jadwal_kerja; ?>"><?= $j->jadwal_kerja; ?></option>
                 <?php endforeach; ?>
                 </select><br>
                   <input type="hidden" required="true" name="act"  value="<?=$act?>">

@@ -152,9 +152,11 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data = [
 				'judul'		=> 'Data User',
-				'data_user'	=> $this->user_model->get($id_user),
+				'data_user'	=> $this->db->query("SELECT * FROM karyawan JOIN user ON karyawan.id_user = user.id_user WHERE karyawan.id_user = $id_user")->row_array(),
 				'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-				'level'		=> $this->user_model->get_level()
+				'level'		=> $this->user_model->get_level(),
+				'divisi'	=> $this->user_model->get_divisi(),
+				'jabatan'	=> $this->user_model->get_jabatan(),
 			];
 			$this->load->view('template/_header', $data);
 			$this->load->view('user/edit_user');
@@ -164,6 +166,62 @@ class User extends CI_Controller
 			$password 	= $this->input->post('password1');
 			$id_level 	= htmlspecialchars($this->input->post('id_level', TRUE));
 
+			$id_jabatan 		= $this->input->post('id_jabatan');
+			$id_divisi 			= $this->input->post('id_divisi');
+			$nik 				= $this->input->post('nik');
+			$nama_karyawan 		= $this->input->post('nama_karyawan');
+			$kantor 			= $this->input->post('kantor');
+
+			$tempat_lahir		= $this->input->post('tempat_lahir');
+			$tanggal_lahir		= $this->input->post('tanggal_lahir');
+			$alamat_sekarang	= $this->input->post('alamat_sekarang');
+			$kota_sekarang		= $this->input->post('kota_sekarang');
+			$kode_pos_sekarang	= $this->input->post('kode_pos_sekarang');
+			$alamat_tetap		= $this->input->post('alamat_tetap');
+			$kota_tetap			= $this->input->post('kota_tetap');
+			$kode_pos_tetap		= $this->input->post('kode_pos_tetap');
+			$ktp_sim			= $this->input->post('ktp_sim');
+			$npwp				= $this->input->post('npwp');
+			$agama				= $this->input->post('agama');
+			$ibu_kandung		= $this->input->post('ibu_kandung');
+			$golongan_darah		= $this->input->post('golongan_darah');
+			$no_telp			= $this->input->post('no_telp');
+			$status				= $this->input->post('status');
+			$nama_pasangan		= $this->input->post('nama_pasangan');
+			$bca_cabang			= $this->input->post('bca_cabang');
+			$no_rek				= $this->input->post('no_rek');
+			$masuk_kerja 		= $this->input->post('masuk_kerja');
+
+			$this->db->set('id_jabatan', $id_jabatan);
+			$this->db->set('id_divisi', $id_divisi);
+			$this->db->set('nik', $nik);
+			$this->db->set('nama_karyawan', $nama_karyawan);
+			$this->db->set('kantor', $kantor);
+			$this->db->set('tempat_lahir', $tempat_lahir);
+			$this->db->set('tanggal_lahir', $tanggal_lahir);
+			$this->db->set('alamat_sekarang', $alamat_sekarang);
+			$this->db->set('kota_sekarang', $kota_sekarang);
+			$this->db->set('kode_pos_sekarang', $kode_pos_sekarang);
+			$this->db->set('alamat_tetap', $alamat_tetap);
+			$this->db->set('kota_tetap', $kota_tetap);
+			$this->db->set('kode_pos_tetap', $kode_pos_tetap);
+			$this->db->set('ktp_sim', $ktp_sim);
+			$this->db->set('npwp', $npwp);
+			$this->db->set('agama', $agama);
+			$this->db->set('ibu_kandung', $ibu_kandung);
+			$this->db->set('golongan_darah', $golongan_darah);
+			$this->db->set('no_telp', $no_telp);
+			$this->db->set('status', $status);
+			$this->db->set('nama_pasangan', $nama_pasangan);
+			$this->db->set('bca_cabang', $bca_cabang);
+			$this->db->set('no_rek', $no_rek);
+			$this->db->set('masuk_kerja', $masuk_kerja);
+
+			
+			$this->db->where('id_user', $id_user);
+			$this->db->update('karyawan');
+
+			
 			$this->db->set('id_level', $id_level);
 			if (!empty($password)) {
 				$this->db->set('password', password_hash($password, PASSWORD_DEFAULT));
@@ -180,6 +238,9 @@ class User extends CI_Controller
 	{
 		$this->db->where('id_user', $id_user);
 		$this->db->delete('user');
+
+		$this->db->where('id_user', $id_user);
+		$this->db->delete('karyawan');
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data User Berhasil Dihapus</div>');
 		redirect('user/data_user');
 	}
