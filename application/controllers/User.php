@@ -16,10 +16,24 @@ class User extends CI_Controller
 		$username  = $this->session->userdata('username');
 		$data = [
 			'judul'     => 'Dashboard',
+			'agama'		=> ['Islam','Protestan','Katolik','Hindu','Buddha','Khonghucu'],
+			'golongan_darah'		=> ['A','B','AB','O'],
 			'user'      => $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level WHERE username = '$username' ")->row()
 		];
 		$this->load->view('template/_header', $data);
 		$this->load->view('index');
+		$this->load->view('template/_footer');
+	}
+
+	public function detail_user($id_user)
+	{
+		$data = [
+			'judul'		=> 'Detail User',
+			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
+			'data_user'	=> $this->db->query("SELECT * FROM karyawan JOIN user ON karyawan.id_user = user.id_user JOIN divisi ON karyawan.id_divisi = divisi.id_divisi JOIN jabatan ON karyawan.id_jabatan = jabatan.id_jabatan WHERE karyawan.id_user = $id_user")->row(),
+		];
+		$this->load->view('template/_header', $data);
+		$this->load->view('user/detail_user');
 		$this->load->view('template/_footer');
 	}
 
@@ -45,7 +59,7 @@ class User extends CI_Controller
 
 	public function tambah_user()
 	{
-		$this->form_validation->set_rules('username', 'username', 'required|trim');
+		$this->form_validation->set_rules('username', 'username', 'required|trim|is_unique[user.username]');
 		$this->form_validation->set_rules('id_level', 'Level', 'required');
 		$this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[4]|matches[password2]', [
 			'min_length' => 'password terlalu lemah',
@@ -61,6 +75,8 @@ class User extends CI_Controller
 			$data = [
 				'judul'		=> 'Data User',
 				'nik'		=> $kode_nik_sekarang,
+				'agama'		=> ['Islam','Protestan','Katolik','Hindu','Buddha','Khonghucu'],
+				'golongan_darah'		=> ['A','B','AB','O'],
 				'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
 				'data_user'	=> $this->user_model->get(),
 				'level'		=> $this->user_model->get_level(),
@@ -152,6 +168,8 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data = [
 				'judul'		=> 'Data User',
+				'agama'		=> ['Islam','Protestan','Katolik','Hindu','Buddha','Khonghucu'],
+				'golongan_darah'		=> ['A','B','AB','O'],
 				'data_user'	=> $this->db->query("SELECT * FROM karyawan JOIN user ON karyawan.id_user = user.id_user WHERE karyawan.id_user = $id_user")->row_array(),
 				'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
 				'level'		=> $this->user_model->get_level(),

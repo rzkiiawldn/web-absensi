@@ -11,10 +11,18 @@ class Cuti extends CI_Controller
 
 	public function index()
 	{
+		$user           = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
+        $karyawan       = $this->db->query("SELECT * FROM karyawan JOIN user ON karyawan.id_user = user.id_user WHERE user.username = '$user->username'")->row();
+        if($user->id_level == 1) {
+            $data_user = $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user  WHERE user_level.level != 'Admin' AND user_level.level != 'HRD' ")->result();
+        } else {
+            $data_user = $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user  WHERE karyawan.id_divisi = $karyawan->id_divisi ")->result();
+        }
+
 		$data = [
 			'judul'		=> 'Data Cuti',
 			'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-			'data_user' => $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user WHERE user_level.level = 'Pegawai' ")->result()
+			'data_user' => $data_user
         ];
 		$this->load->view('template/_header', $data);
 		$this->load->view('cuti/index');

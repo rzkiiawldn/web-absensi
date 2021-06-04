@@ -20,7 +20,7 @@
 						<div class="form-group">
 							<label for="id_level">Level</label>
 							<select class="form-control" name="id_level" value="<?= set_value('id_level'); ?>">
-								<option value="">-- pilih --</option>
+								<option value="" selected disabled>-- pilih --</option>
 								<?php foreach ($level as $l) { ?>
 									<option value="<?= $l->id_level; ?>"><?= $l->level; ?></option>
 								<?php } ?>
@@ -109,7 +109,7 @@
 					<?= form_error('kota_sekarang', '<small class="text-danger pl-3">', '</small>'); ?>
 					<label for="kode_pos_sekarang" class="col-sm-2 col-form-label">Kode Pos</label>
 				    <div class="col-sm-3">
-				      <input type="text" class="form-control" id="kode_pos_sekarang" name="kode_pos_sekarang" value="<?= set_value('kode_pos_sekarang') ?>">
+				      <input type="number" class="form-control" id="kode_pos_sekarang" name="kode_pos_sekarang" value="<?= set_value('kode_pos_sekarang') ?>">
 				    </div>
 					<?= form_error('kode_pos_sekarang', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
@@ -130,7 +130,7 @@
 					<?= form_error('kota_tetap', '<small class="text-danger pl-3">', '</small>'); ?>
 					<label for="kode_pos_tetap" class="col-sm-2 col-form-label">Kode Pos</label>
 				    <div class="col-sm-3">
-				      <input type="text" class="form-control" id="kode_pos_tetap" name="kode_pos_tetap" value="<?= set_value('kode_pos_tetap') ?>">
+				      <input type="number" class="form-control" id="kode_pos_tetap" name="kode_pos_tetap" value="<?= set_value('kode_pos_tetap') ?>">
 				    </div>
 					<?= form_error('kode_pos_tetap', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
@@ -154,10 +154,23 @@
 				<div class="form-group row">
 				    <label for="agama" class="col-sm-2 col-form-label">Agama</label>
 				    <div class="col-sm-10">
-			    	<input type="text" class="form-control" id="agama" name="agama" value="<?= set_value('agama') ?>">
+				    	<select class="form-control" name="agama" value="<?= set_value('agama'); ?>">
+							<option value="" selected disabled>-- pilih --</option>
+							<?php foreach ($agama as $data) { ?>
+								<option value="<?= $data ?>"><?= $data; ?></option>
+							<?php } ?>
+						</select>
 				    </div>
 					<?= form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
+<!-- 
+				<div class="form-group row">
+				    <label for="agama" class="col-sm-2 col-form-label">Agama</label>
+				    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="agama" name="agama" value="<?= set_value('agama') ?>">
+				    </div>
+					<?= form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?>
+				</div> -->
 
 				<div class="form-group row">
 				    <label for="ibu_kandung" class="col-sm-2 col-form-label">Nama Ibu Kandung</label>
@@ -170,10 +183,23 @@
 				<div class="form-group row">
 				    <label for="golongan_darah" class="col-sm-2 col-form-label">Golongan Darah</label>
 				    <div class="col-sm-10">
-			    	<input type="text" class="form-control" id="golongan_darah" name="golongan_darah" value="<?= set_value('golongan_darah') ?>">
+				    	<select class="form-control" name="golongan_darah" value="<?= set_value('golongan_darah'); ?>">
+							<option value="" selected disabled>-- pilih --</option>
+							<?php foreach ($golongan_darah as $golongan) { ?>
+								<option value="<?= $golongan ?>"><?= $golongan; ?></option>
+							<?php } ?>
+						</select>
 				    </div>
 					<?= form_error('golongan_darah', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
+
+				<!-- <div class="form-group row">
+				    <label for="golongan_darah" class="col-sm-2 col-form-label">Golongan Darah</label>
+				    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="golongan_darah" name="golongan_darah" value="<?= set_value('golongan_darah') ?>">
+				    </div>
+					<?= form_error('golongan_darah', '<small class="text-danger pl-3">', '</small>'); ?>
+				</div> -->
 
 				<div class="form-group row">
 				    <label for="no_telp" class="col-sm-2 col-form-label">NO.TELEPON RUMAH / HP</label>
@@ -186,7 +212,7 @@
 				<div class="form-group row">
 				    <label for="masuk_kerja" class="col-sm-2 col-form-label">MASUK KERJA</label>
 				    <div class="col-sm-10">
-				    	<input type="text" class="form-control" id="masuk_kerja" name="masuk_kerja" value="<?= set_value('masuk_kerja') ?>">
+				    	<input type="date" class="form-control" id="masuk_kerja" name="masuk_kerja" value="<?= set_value('masuk_kerja') ?>">
 				    </div>
 					<?= form_error('masuk_kerja', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
@@ -195,7 +221,7 @@
 				    <label for="id_divisi" class="col-sm-2 col-form-label">DIVISI</label>
 				    <div class="col-sm-10">
 				    	<select class="form-control" name="id_divisi" value="<?= set_value('id_divisi'); ?>">
-							<option value="">-- pilih --</option>
+							<option value="" selected disabled>-- pilih --</option>
 							<?php foreach ($divisi as $l) { ?>
 								<option value="<?= $l->id_divisi; ?>"><?= $l->divisi; ?></option>
 							<?php } ?>
@@ -208,7 +234,7 @@
 				    <label for="id_jabatan" class="col-sm-2 col-form-label">JABATAN</label>
 				    <div class="col-sm-10">
 				    	<select class="form-control" name="id_jabatan" value="<?= set_value('id_jabatan'); ?>">
-							<option value="">-- pilih --</option>
+							<option value="" selected disabled>-- pilih --</option>
 							<?php foreach ($jabatan as $l) { ?>
 								<option value="<?= $l->id_jabatan; ?>"><?= $l->jabatan; ?></option>
 							<?php } ?>
@@ -221,7 +247,7 @@
 				    <label for="status" class="col-sm-2 col-form-label">status</label>
 				    <div class="col-sm-10">
 				    	<select class="form-control" name="status" value="<?= set_value('status'); ?>">
-							<option value="">-- pilih --</option>
+							<option value="" selected disabled>-- pilih --</option>
 							<option value="BELUM NIKAH">BELUM NIKAH</option>
 							<option value="NIKAH">NIKAH</option>
 							<option value="DUDA/JANDA">DUDA/JANDA</option>

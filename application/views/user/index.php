@@ -40,6 +40,7 @@
                 <td><?= $user->level; ?></td>
                 <td>
                   <!-- <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit<?= $user->id_user; ?>">edit</a> -->
+                  <a href="<?= base_url('user/detail_user/' . $user->id_user); ?>" class="btn btn-sm btn-info">detail</a>
                   <a href="<?= base_url('user/edit_user/' . $user->id_user); ?>" class="btn btn-sm btn-success">edit</a>
                   <a href="<?= base_url('user/hapus_user/' . $user->id_user); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus ?')">hapus</a>
                 </td>
@@ -64,10 +65,6 @@
       </div>
       <form action="" method="post">
         <div class="modal-body">
-          <!-- <div class="form-group">
-            <label for="nik">NIK</label>
-            <input type="text" class="form-control" id="nik" name="nik" value="IT-<?= sprintf("%04s", $nik) ?>" readonly>
-          </div> -->
           <div class="form-group">
             <label for="username">username</label>
             <input type="text" class="form-control" id="username" name="username">

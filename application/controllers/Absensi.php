@@ -69,7 +69,7 @@ class Absensi extends CI_Controller
             'judul'     => 'Detail Absensi',
             'user'      => $user,
             'data_user' => $this->user_model->find($id_user),
-            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen WHERE absen.id_user = '$id_user' AND month(tanggal) = '$bulan' AND year(tanggal) = '$tahun' ORDER BY absen.id_absen DESC")->result(),
+            'absen_detail' => $this->db->query("SELECT * FROM absen_detail JOIN absen ON absen_detail.absen_id = absen.id_absen JOIN user ON absen.id_user = user.id_user JOIN karyawan ON karyawan.id_user = user.id_user WHERE absen.id_user = '$id_user' AND month(tanggal) = '$bulan' AND year(tanggal) = '$tahun' ORDER BY absen.id_absen DESC")->result(),
             'absen'     => $this->absensi_model->get_absen($id_user, $bulan, $tahun),
             'jam_kerja' => (array) $this->absensi_model->get_jam(),
             'all_bulan' => bulan(),
@@ -98,10 +98,19 @@ class Absensi extends CI_Controller
 
     public function data_absensi()
     {
+        $user           = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row();
+        $karyawan       = $this->db->query("SELECT * FROM karyawan JOIN user ON karyawan.id_user = user.id_user WHERE user.username = '$user->username'")->row();
+        if($user->id_level == 1) {
+            $data_user = $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user  WHERE user_level.level != 'Admin' AND user_level.level != 'HRD' ")->result();
+        } else {
+            $data_user = $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user  WHERE karyawan.id_divisi = $karyawan->id_divisi ")->result();
+        }
+
+
         $data = [
             'judul'     => 'Data Absensi',
             'user'      => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-            'data_user' => $this->db->query("SELECT * FROM user JOIN user_level ON user.id_level = user_level.id_level JOIN karyawan ON karyawan.id_user = user.id_user  WHERE user_level.level = 'Pegawai' ")->result()
+            'data_user' => $data_user
         ];
         $this->load->view('template/_header', $data);
         $this->load->view('absensi/data_absensi');

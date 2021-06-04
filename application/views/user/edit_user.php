@@ -99,7 +99,7 @@
 					<?= form_error('kota_sekarang', '<small class="text-danger pl-3">', '</small>'); ?>
 					<label for="kode_pos_sekarang" class="col-sm-2 col-form-label">Kode Pos</label>
 				    <div class="col-sm-3">
-				      <input type="text" class="form-control" id="kode_pos_sekarang" name="kode_pos_sekarang" value="<?= $data_user['kode_pos_sekarang'] ?>">
+				      <input type="number" class="form-control" id="kode_pos_sekarang" name="kode_pos_sekarang" value="<?= $data_user['kode_pos_sekarang'] ?>">
 				    </div>
 					<?= form_error('kode_pos_sekarang', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
@@ -120,7 +120,7 @@
 					<?= form_error('kota_tetap', '<small class="text-danger pl-3">', '</small>'); ?>
 					<label for="kode_pos_tetap" class="col-sm-2 col-form-label">Kode Pos</label>
 				    <div class="col-sm-3">
-				      <input type="text" class="form-control" id="kode_pos_tetap" name="kode_pos_tetap" value="<?= $data_user['kode_pos_tetap'] ?>">
+				      <input type="number" class="form-control" id="kode_pos_tetap" name="kode_pos_tetap" value="<?= $data_user['kode_pos_tetap'] ?>">
 				    </div>
 					<?= form_error('kode_pos_tetap', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
@@ -144,10 +144,27 @@
 				<div class="form-group row">
 				    <label for="agama" class="col-sm-2 col-form-label">Agama</label>
 				    <div class="col-sm-10">
-			    	<input type="text" class="form-control" id="agama" name="agama" value="<?= $data_user['agama'] ?>">
+				    	<select class="form-control" name="agama" value="<?= set_value('agama'); ?>">
+							<option value="" selected disabled>-- pilih --</option>
+							<?php foreach ($agama as $data) { ?>
+							<?php if($data == $data_user['agama']) { ?>
+								<option value="<?= $data ?>" selected><?= $data; ?></option>
+							<?php } else { ?>
+								<option value="<?= $data ?>"><?= $data; ?></option>
+							<?php } ?>
+							<?php } ?>
+						</select>
 				    </div>
 					<?= form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
+<!-- 
+				<div class="form-group row">
+				    <label for="agama" class="col-sm-2 col-form-label">Agama</label>
+				    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="agama" name="agama" value="<?= $data_user['agama'] ?>">
+				    </div>
+					<?= form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?>
+				</div> -->
 
 				<div class="form-group row">
 				    <label for="ibu_kandung" class="col-sm-2 col-form-label">Nama Ibu Kandung</label>
@@ -160,10 +177,27 @@
 				<div class="form-group row">
 				    <label for="golongan_darah" class="col-sm-2 col-form-label">Golongan Darah</label>
 				    <div class="col-sm-10">
-			    	<input type="text" class="form-control" id="golongan_darah" name="golongan_darah" value="<?= $data_user['golongan_darah'] ?>">
+				    	<select class="form-control" name="golongan_darah" value="<?= set_value('golongan_darah'); ?>">
+							<option value="" selected disabled>-- pilih --</option>
+							<?php foreach ($golongan_darah as $data) { ?>
+							<?php if($data == $data_user['golongan_darah']) { ?>
+								<option value="<?= $data ?>" selected><?= $data; ?></option>
+							<?php } else { ?>
+								<option value="<?= $data ?>"><?= $data; ?></option>
+							<?php } ?>
+							<?php } ?>
+						</select>
 				    </div>
 					<?= form_error('golongan_darah', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
+
+				<!-- <div class="form-group row">
+				    <label for="golongan_darah" class="col-sm-2 col-form-label">Golongan Darah</label>
+				    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="golongan_darah" name="golongan_darah" value="<?= $data_user['golongan_darah'] ?>">
+				    </div>
+					<?= form_error('golongan_darah', '<small class="text-danger pl-3">', '</small>'); ?>
+				</div> -->
 
 				<div class="form-group row">
 				    <label for="no_telp" class="col-sm-2 col-form-label">NO.TELEPON RUMAH / HP</label>
