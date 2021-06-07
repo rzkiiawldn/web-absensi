@@ -39,7 +39,8 @@ class User_model extends CI_Model
 	public function find($id_user)
 	{
 		$this->db->join('user_level', 'user.id_level = user_level.id_level', 'LEFT');
-		$this->db->where('id_user', $id_user);
+		$this->db->join('karyawan', 'user.id_user = karyawan.id_user', 'LEFT');
+		$this->db->where('user.id_user', $id_user);
 		$result = $this->db->get('user');
 		return $result->row();
 	}

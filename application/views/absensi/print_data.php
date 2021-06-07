@@ -3,9 +3,9 @@
 </head><body>
     <table>
         <tr>
-            <th width="20%">username</th>
+            <th width="20%">nama</th>
             <th width="10%">:</th>
-            <th width="20%"><?= $data_user->username; ?></th>
+            <th width="20%"><?= $data_user->nama_karyawan; ?></th>
         </tr>
         <tr>
             <th>Status</th>
@@ -39,7 +39,7 @@
             <?php endforeach; ?>
         <?php else : ?>
             <tr>
-                <td class="bg-light text-center" colspan="4" align="center" style="background-color: red">Tidak ada data absen</td>
+                <td class="bg-light text-center" colspan="5" align="center" style="background-color: red">Tidak ada data absen</td>
             </tr>
         <?php endif; ?>
 
