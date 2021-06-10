@@ -292,6 +292,7 @@ class Absensi extends CI_Controller
 
         $this->dompdf->load_html($html);
         $this->dompdf->render();
+        ob_end_clean();
         $this->dompdf->stream($filename, ['Attachment' => 0]);
     }
 }
